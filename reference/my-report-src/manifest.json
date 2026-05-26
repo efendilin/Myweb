@@ -1,0 +1,46 @@
+{
+  "name": "My EReport",
+  "version": "1.4",
+  "manifest_version": 3,
+  "permissions": ["tabs", "activeTab", "storage", "unlimitedStorage"],
+  "commands": {
+    "call_editor": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+X",
+        "mac": "MacCtrl+Shift+X"
+      },
+      "description": "開啟樣板編輯器"
+    }
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "32": "text32.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://hisweb.skh.org.tw/*",
+        "http://ns.hisweb.skh.org.tw/*",
+        "https://prod-emrra.skh.org.tw/*",
+        "<all_urls>"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["dialog.html", "options.html", "editor.html", "demo.json"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

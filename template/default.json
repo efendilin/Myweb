@@ -1,0 +1,795 @@
+{
+  "version": "2.0",
+  "tab": {
+    "List": [
+      "Brain",
+      "H and N",
+      "Lung",
+      "Med",
+      "Abd",
+      "Pelvic",
+      "Others",
+      "Whole",
+      "Followup"
+    ],
+    "TabName": {
+      "Brain": {
+        "active": "True",
+        "checklist": [],
+        "connect": "Brain"
+      },
+      "H and N": {
+        "active": "True",
+        "checklist": [],
+        "connect": "Head&Neck"
+      },
+      "Lung": {
+        "active": "True",
+        "checklist": [],
+        "connect": "Lung"
+      },
+      "Med": {
+        "active": "True",
+        "checklist": [],
+        "connect": "Chest"
+      },
+      "Abd": {
+        "active": "True",
+        "checklist": [],
+        "connect": "Abdomen"
+      },
+      "Pelvic": {
+        "active": "True",
+        "checklist": [],
+        "connect": "Pelvic"
+      },
+      "Others": {
+        "active": "True",
+        "checklist": [],
+        "connect": "Others"
+      },
+      "Whole": {
+        "active": "True",
+        "checklist": [],
+        "connect": "WholeBody"
+      },
+      "Followup": {
+        "active": "True",
+        "checklist": [],
+        "connect": "FollowUp"
+      }
+    }
+  },
+  "category_list": [
+    "Common",
+    "Brain",
+    "Head&Neck",
+    "Lung",
+    "Chest",
+    "Abdomen",
+    "Pelvic",
+    "Others",
+    "WholeBody",
+    "FollowUp",
+    "Abbreviation",
+    "Cancer"
+  ],
+  "category": {
+    "Common": [
+      {
+        "shortcut": "lesion",
+        "main": "V{+nodule|lymph node|mass|lesion} with V{+mild increased|increased|intense} FDG uptake V{+|(size:LE[]cm, maxSUV:LE[])|(size:LE[]xLE[]cm, maxSUV:LE[])} in the",
+        "description": "simple lesion with measuring",
+		"location": [],
+		"type": [],
+        "active": true
+      },
+      {
+        "shortcut": "fdg",
+        "main": "V{Focal|Diffuse|Heterogenerous|Nodular} V{+faint|mild increased|moderate increased|intense} FDG uptake in the",
+        "description": "simple FDG uptake lesion",
+		"location": [],
+		"type": [],
+        "active": true
+      },
+      {
+        "shortcut": "preexist",
+        "main": "The pre-existing hypermetabolic lesion in the",
+        "active": "True",
+        "description": ""
+		"location": [],
+		"type": [],
+      },
+      {
+        "shortcut": "nomet",
+        "main": "No obvious abnormal FDG uptake lesion is noted to suggest regional nodal or distant metastasis.",
+        "active": "True",
+        "description": "",
+		"location": [],
+		"type": [],
+      },
+      {
+        "shortcut": "brownfat",
+        "main": "Diffuse mild increased FDG uptake in bilateral G2{occipital|cervical|supraclavicular|paravertebral|mediastinal|para-aortic|suprarenal} adipose tissue is likely due to physiologic change of brown adipose tissue.",
+        "description": "brown fat metabolism",
+        "active": true,
+		"location": [],
+		"type": [],
+      },
+      {
+        "shortcut": "m",
+        "main": "V{(LE[]cm)|(LE[]cm, IMA:LE[])|(LE[]cm, maxSUV:LE[])|(LE[]xLE[]cm, maxSUV:LE[])|(LE[]xLE[]xLE[]cm, maxSUV:LE[])}",
+        "description": "regular measuring",
+        "active": true,
+		"location": [],
+		"type": [],
+      },
+      {
+        "shortcut": "ctf",
+        "main": "CT shows ",
+        "active": true,
+        "description": ""
+		"location": [],
+		"type": [],
+      },
+      {
+        "shortcut": "conc",
+        "main": "\n\n\nCT shows \nCONCLUSIONS-----------------------------\n\n\n",
+        "description": "CT shows + 分隔線",
+        "active": true,
+		"location": [],
+		"type": [],
+      },
+      {
+        "shortcut": "conc1",
+        "main": "\n\n\nCT shows \nCONCLUSIONS-----------------------------\nNormal physiological FDG-PET study of the brain.",
+        "description": "CT shows + 分隔線 + normal brain",
+		"location": [],
+		"type": [],
+        "active": true
+      }
+    ],
+    "Brain": [
+      {
+        "shortcut": "brainmet",
+        "main": "V{Focal|Nodular} increased FDG uptake in the M{H[right|bilateral|left] frontal|H[right|bilateral|left] temporal|H[right|bilateral|left] parietal|H[right|bilateral|left] occipital|H[right|bilateral|left] cerebellum} lobe(s). Brain metastasis should be suspected.",
+        "description": "Brain metastasis",
+		"location": [],
+		"type": [],
+        "active": true
+      },
+      {
+        "shortcut": "oldcva",
+        "main": "Focal decreased FDG uptake in M{H[right|bilateral|left] frontal|H[right|bilateral|left] temporal|H[right|bilateral|left] parietal|H[right|bilateral|left] occipital} lobe(s), possibly due to old post-CVA change.",
+        "description": "Old CVA of brain",
+		"location": [],
+		"type": [],
+        "active": true
+      },
+      {
+        "shortcut": "dementia",
+        "main": "Focal H{increased|+decreased} FDG uptake in the M{H[right|bilateral|left] frontal lobe|H[right|bilateral|left] temporal lobe|H[right|bilateral|left] parietal lobe|H[right|bilateral|left] occipital lobe|H[right|bilateral|left] limbic system|H[right|bilateral|left] posterior cingulate cortex}",
+        "description": "suspicious of dementia",
+		"location": [],
+		"type": [],
+        "active": true
+      },
+      {
+        "shortcut": "puiti",
+        "main": "One small focus of nodular increased FDG uptake in the sella turcica, r/o pituitary adenoma. ",
+        "description": "pituitary adenoma",
+		"location": [],
+		"type": [],
+        "active": true
+      }
+    ],
+    "Head&Neck": [
+      {
+        "shortcut": "na",
+        "main": "V{Mild|+Mild increased|Increased} FDG uptake in the M{nasopharyngeal adenoid|H[right|+bilateral|left] nasopharynx+} V{+|without abnormal in shape}, likely due to V{+reactive hyperplasia| mild inflammation}. C{Possible block[3] in block[2] nasopharynx.|Suggest ENT OPD follow up}\n",
+        "description": "V{Mild|+Mild increased|Increased} FDG uptake in H{the right|+bilateral|the left} nasopharynx V{+|without abnormal in shape}, likely due to V{+reactive hyperplasia| mild inflammation}. C{Possible block[3] in block[2] nasopharynx.|Suggest ENT OPD follow up}",
+        "active": true
+      },
+      {
+        "shortcut": "na-asymme",
+        "main": "Asymmetrically increased FDG uptake in the M{H[right|left] nasopharynx|H[right|bilateral|left] tonsil} V{|, +without structural abnormality shown on CT}, possibly due to V{reactive hyperplasia|+mild inflammation} V{+|but tumoral uptake cannot be ruled out}. C{Possible block[3] in block[1] nasopharynx.|Suggest ENT OPD further examination}",
+        "description": "Asymmetrically increased FDG uptake in H{the right|the left} nasopharynx, V{|+without structural abnormality shown on CT}, possibly due to V{reactive hyperplasia|+ mild inflammation} V{+|but tumoral uptake cannot be ruled out}. C{Possible block[3] in block[1] nasopharynx.|Suggest ENT OPD further examination}",
+		"location": [],
+		"type": [],
+        "active": true
+      },
+      {
+        "shortcut": "vocalcord",
+        "main": "V{Symmetrical|Asymmetrical} increased FDG uptake in the H{right|bilateral|left} vocal cord V{+|without abnormality in CT image}, possible due to V{+pronouncing-related physiologic change|mild inflammation}.",
+        "description": "V{Symmetrical|Asymmetrical} increased FDG uptake in the H{right|bilateral|left} vocal cord, possible due to pronouncing-related physiologic change.",
+		"location": [],
+		"type": [],
+        "active": true
+      },
+      {
+        "shortcut": "neckln",
+        "main": "V{Mild|+Mild increased|Increased} FDG uptake in H{the right|+bilateral|the left} V{+upper neck|lower neck|submandibular region|parotic region} small lymph nodes, likely due to lymphadenitis. C{Possible non-specific lymphadenitis in block[2] neck region.}",
+        "description": "V{Mild|Mild increased|Increased} FDG uptake in H{the right|+bilateral|the left} V{+upper|lower|submandibular} neck small lymph nodes, likely due to lymphadenitis. C{Possible non-specific lymphadenitis in block[2] neck region.}",
+		"location": [],
+		"type": [],
+        "active": true
+      },
+      {
+        "shortcut": "dental",
+        "main": "Focal V{+mild increased|increased} FDG uptake in G3{blank|the upper anterior|blank|the right upper|bilateral upper|the left upper|the right lower|bilateral lower|the left lower|blank|the lower anterior|blank} dental bed(s), possibly due to V{dental implant|dentopathy+}.\nC{Possible block[2] block[3].|Suggest dentist OPD follow up, if symptomatic.}",
+        "description": "Focal V{mildly increased|increased} FDG uptake in G3{blank|the upper anterior|blank|the right upper|bilateral upper|the left upper|the right lower|bilateral lower|the left lower|blank|the lower anterior|blank}  dental bed(s), possibly due to V{dental implant|dentopathy+}. C{Possible block[2] block[3].|Suggest dentist OPD follow up, if symptomatic.}",
+		"location": [],
+		"type": [],
+        "active": true
+      },
+      {
+        "shortcut": "sinus",
+        "main": "Mucus accumulation V{|+with faint FDG uptake} in the M{H[right|bilateral|left] maxillary|H[right|bilateral|left] ethmoid|H[right|bilateral|left] sphenoid} sinus, likely due to sinusitis.",
+        "active": true,
+		"location": [],
+		"type": [],
+        "description": ""
+      },
+      {
+        "shortcut": "com",
+        "main": "Decreased pneumonization of H{the right|+bilateral|the left} mastoid air cells V{|+with faint FDG uptake}, r/o chronic otitis media.",
+        "active": "True",
+		"location": [],
+		"type": [],
+        "description": ""
+      },
+      {
+        "shortcut": "mng",
+        "main": "V{+Heterogeneous nodularities|Hypodense nodules} with V{faint| diffusely mild|heterogeneously mild} FDG uptake H{|and calcification spots} in bilateral thyroid lobes, possibly due to multinodular goiter.",
+        "active": "True",
+		"location": [],
+		"type": [],
+        "description": ""
+      },
+      {
+        "shortcut": "thyroidnd",
+        "main": "A V{+hypodense|} nodule V{|+with mild FDG uptake|with increased FDG uptake|with intense FDG uptake} in H{the right|the left} thyroid lobe.",
+        "active": "True",
+		"location": [],
+		"type": [],
+        "description": ""
+      },
+      {
+        "shortcut": "ts",
+        "main": "Diffusely V{faint|+mild|mildly increased|increased} FDG uptake in bilateral thyroid lobes, possibly due to V{+chronic thyroiditis|physiological uptake|chronic thyroiditis or physiological uptake}.",
+        "active": true,
+		"location": [],
+		"type": [],
+        "description": ""
+      },
+      {
+        "shortcut": "neckmuscle",
+        "main": "Linear increased FDG uptake in the M/{H[right|bilateral|left] colli longus|H[right|bilateral|left] capitis longus|H[right|bilateral|left] pterygoid|H[right|bilateral|left] masticator|H[right|bilateral|left] pterygoid|H[right|bilateral|left] stylohyoideus|H[right|bilateral|left] digastric|H[right|bilateral|left] rectus capitis|H[right|bilateral|left] oblique capitis|H[right|bilateral|left] sternohyoideus |H[right|bilateral|left] scalene|H[right|bilateral|left] sternocleidomastoid} muscle(s), favoring muscle stress related physiologic change.",
+        "description": "Linear increased FDG uptake in the  M{H[right|bilateral|left] colli longus|H[right|bilateral|left] capitis longus|H[right|bilateral|left] masticator|H[right|bilateral|left] pterygoid|H[right|bilateral|left] stylohyoideus|H[right|bilateral|left] digastric|H[right|bilateral|left] rectus capitis|H[right|bilateral|left] oblique capitis|H[right|bilateral|left] sternohyoideus |H[right|bilateral|left] scalene|H[right|bilateral|left] sternocleidomastoid} muscle(s), favoring muscle stress related physiologic change.",
+		"location": [],
+		"type": [],
+        "active": true
+      },
+      {
+        "shortcut": "cdjd",
+        "main": "Focal H{+mild|} increased FDG uptake in the M{H[right|bilateral|left] C1/C2|H[right|bilateral|left] C2/C3|H[right|bilateral|left] C3/C4|H[right|bilateral|left] C4/C5|H[right|bilateral|left] C5/C6 |H[right|bilateral|left] C6/C7|H[right|bilateral|left] C7/T1} V{facet joint(s)|junction(s)}, likely due to degenerative arthritis.",
+        "active": true,
+		"location": [],
+		"type": [],
+        "description": ""
+      },
+      {
+        "shortcut": "cthead",
+        "main": "M{H[right|bilateral|left] maxillary|H[right|bilateral|left] ethmoid|H[right|bilateral|left] sphnoid|H[right|bilateral|left] frontal|H[right|bilateral|left] enlarged thyroid gland; } M{H[mild|] sinusitis+; |polyp; }",
+        "description": "M{H[right|bilateral|left] maxillary|H[right|bilateral|left] ethmoid|H[right|bilateral|left] sphnoid|H[right|bilateral|left] frontal|H[right|bilateral|left] enlarged thyroid gland; } M{H[mild|] sinusitis; |polyp; }",
+		"location": [],
+		"type": [],
+        "active": true
+      }
+    ],
+    "Lung": [
+      {
+        "shortcut": "nln",
+        "main": "H{Mild|+Mild increased|Increased} FDG uptake in the M{mediastinal|H[right|bilateral|left] hilar} H{+|small|calcified} lymph nodes, likely due to lymphadenitis.",
+        "active": true,
+		"location": [],
+		"type": [],
+        "description": ""
+      },
+      {
+        "shortcut": "nd",
+        "main": "V{|tiny nodule in the+} G2{right upper lung|left upper lung|right middle lung|left lower lung|right lower lung|blank}V{(LE[]cm)|(LE[]cm, image:LE[])|(LE[]cm, maxSUV:LE[])|(LE[]xLE[]cm, maxSUV:LE[])|(LE[]xLE[]xLE[]cm, maxSUV:LE[])}",
+        "description": "M{H[solid|subsolid|calcified] nodule(s)|GGO lesion(s)|patch} V{|+with mild increased FDG uptake|with intense FDG uptake} in the G2{RUL|LUL|RML|LLL|RLL|blank}",
+		"location": [],
+		"type": [],
+        "active": true
+      },
+      {
+        "shortcut": "lungnd",
+		"location": [],
+		"type": [],
+        "main": "M{H[solid|subsolid|calcified] nodule(s)|GGO lesion(s)|patch} V{with mild increased FDG uptake|with intense FDG uptake} in the G2{right upper lung|left upper lung|right middle lung|left lower lung|right lower lung|blank} V{(LE[]cm)|(LE[]cm, image:LE[])|(LE[]cm, maxSUV:LE[])|(LE[]xLE[]cm, maxSUV:LE[])|(LE[]xLE[]xLE[]cm, maxSUV:LE[])}",
+        "description": "M{H[solid|subsolid|calcified] nodule(s)|GGO lesion(s)|patch} V{|+with mild increased FDG uptake|with intense FDG uptake} in the",
+        "active": true
+      },
+      {
+        "shortcut": "axillaryln",
+		"location": [],
+		"type": [],
+        "main": "There is mildly increased FDG uptake in H{the right|+bilateral|the left} axillary small lymph nodes V{+|with fatty hilum}, favoring V{+lymphadenitis|reactive hyperplasia}.",
+        "active": true,
+        "description": ""
+      },
+      {
+        "shortcut": "ctlungnd",
+		"location": [],
+		"type": [],
+        "main": "H{+|tiny} V{calcified spot|nodule|patch|GGO lesion} in the G2{RUL|LUL|RML|LLL|RLL|blank}",
+        "active": true,
+        "description": ""
+      },
+      {
+        "shortcut": "lungm",
+		"location": [],
+		"type": [],
+        "main": "G2{RUL|LUL|RML|LLL|RLL}V{(LE[]cm)|(LE[]cm, IMA:LE[])|(LE[]cm, maxSUV:LE[])|(LE[]xLE[]cm, maxSUV:LE[])|(LE[]xLE[]xLE[]cm, maxSUV:LE[])}",
+        "active": true,
+        "description": ""
+      },
+      {
+        "shortcut": "lunginf",
+		"location": [],
+		"type": [],
+        "main": "H{+Focal|Diffuse} fibro-infiltration M{|+with H[faint increased|mild increased|intense] FDG uptake} in the G2{RUL|LUL|RML|LLL|RLL}",
+        "description": "lung inflammation",
+        "active": true
+      },
+      {
+        "shortcut": "pleuraeffusion",
+		"location": [],
+		"type": [],
+        "main": "V{|Mild+|Moderate|Massive} H{right|+bilateral|left} pleural effusion V{+|with faint FDG uptake}",
+        "active": true,
+        "description": ""
+      },
+      {
+        "shortcut": "",
+		"location": [],
+		"type": [],
+        "main": "m{coronary artery H[+|mild|severe] calcification; |H[|mild] emphysematous change of both lungs; |s/p H[right|bilateral|left] mastectomy; |fibrocystic change of bilateral breast; }",
+        "description": "lungct",
+        "active": true
+      }
+    ],
+    "Chest": [
+      {
+        "shortcut": "breast",
+		"location": [],
+		"type": [],
+        "main": "a nodule V{without abnormal FDG uptake|+with mild increased FDG uptake|with intense FDG uptake} in the G2{upper-outer quadrant of the right|upper-inner quadrant of the right|lower-outer quadrant of the right|lower-inner quadrant of the right|upper-inner quadrant of the left|upper-outer quadrant of the left|lower-inner quadrant of the left|lower-outer quadrant of the left} breast.",
+        "description": "a nodule V{|+with mild increased FDG uptake|with intense FDG uptake} in the G2{upper-inner quadrant of|upper-outer quadrant of|lower-inner quadrant of|lower-outer quadrant|+} H{the right|+bilateral|the left} breast.",
+        "active": true
+      },
+      {
+        "shortcut": "antmed",
+		"location": [],
+		"type": [],
+        "main": "Mild increased FDG uptake in anterior mediastinum, favoring .",
+        "active": "True",
+        "description": ""
+      },
+      {
+        "shortcut": "eso",
+		"location": [],
+		"type": [],
+        "main": "V{+Focal| Linearly| Segmentally} H{mild|+mildly increased|increased} FDG uptake in the V{+distal esophagus near EC junction|lower esophagus|EC junction| entire esophagus}, possibly due to V{+reflux esophagitis|mild inflammation|physiological uptake|post-RT change}.",
+        "description": "esophageal lesion",
+        "active": true
+      },
+      {
+        "shortcut": "sterno",
+		"location": [],
+		"type": [],
+        "main": "Focal V{+mildly increased|mild} FDG uptake in H{the right|the left|bilateral} sternoclavicular junction, likely due to degenerative change.",
+        "active": "True",
+        "description": ""
+      },
+      {
+        "shortcut": "tdjd",
+		"location": [],
+		"type": [],
+        "main": "Focal H{+mild|} increased FDG uptake in the M{H[right|bilateral|left] T1/T2|H[right|bilateral|left] T2/T3|H[right|bilateral|left] T3/T4|H[right|bilateral|left] T4/T5|H[right|bilateral|left] T5/T6|H[right|bilateral|left] T6/T7|H[right|bilateral|left] T7/T8|H[right|bilateral|left] T8/T9|H[right|bilateral|left] T9/T10|H[right|bilateral|left] T10/T11|H[right|bilateral|left] T11/T12|H[right|bilateral|left] T12/L1} V{facet joint(s)|junction(s)}, likely due to degenerative arthritis.",
+        "active": true,
+        "description": ""
+      },
+      {
+        "shortcut": "chestmuscle",
+		"location": [],
+		"type": [],
+        "main": "Linear increased FDG uptake in the M{H[right|bilateral|left] intercostcal|} muscle(s), favoring muscle stress related physiologic change.",
+        "active": true,
+        "description": ""
+      },
+      {
+        "shortcut": "ctchest",
+		"location": [],
+		"type": [],
+        "main": "M{coronary artery H[+|mild|severe] calcification; |emphysematous change of both lungs; |s/p H[right|bilateral|left] mastectomy; |fibrocystic change of bilateral breast; }",
+        "description": "M{coronary artery H[+|mild|severe] calcification;|emphysematous change of both lungs;|s/p H[right|bilateral|left] bilateral mastectomy;}",
+        "active": true
+      }
+    ],
+    "Abdomen": [
+      {
+        "shortcut": "colonnd",
+		"location": [],
+		"type": [],
+        "main": "Nodular V{mild increased|+increased|intense} FDG uptake in the M{ascending colon|transverse colon|descending colon|recto-sigmoid colon| rectum} V{persisted in the delay image|+}. Adenoma is suspected first V{+|but malignancy cannot be ruled out}.",
+        "description": "colon with nodular lesion",
+        "active": true
+      },
+      {
+        "shortcut": "gas",
+		"location": [],
+		"type": [],
+        "main": "V{Mild|+Mildly increased|Increased} FDG uptake in the M{+gastric antrum|gastric pyloric region}, possibly due to V{+inflammation|mild inflammation}.",
+        "description": "gastric lesion (favoring inflammation)",
+        "active": true
+      },
+      {
+        "shortcut": "filling defect",
+		"location": [],
+		"type": [],
+        "main": "A small focus of nodular V{mildly increased|+increased|intense} FDG uptake in the V{ascending|transverse|descending|sigmoid} colon, corresponding to a small filling defect of contrast enema shown on the delayed scan images.",
+        "active": "True",
+        "description": ""
+      },
+      {
+        "shortcut": "col",
+		"location": [],
+		"type": [],
+        "main": "V{Heterogeneously|+Diffusely|Segmentally} V{mild|+mildly increased|increased} FDG uptake in the M{ascending|transverse|descending|rectosigmoid} colon could be due to bowel physiologic change V{+|but preclude detail evaluation of colon}V{+.|Suggest correlation with scheduled colonoscopic examination.}",
+        "description": "V{Heterogeneously|Diffusely|Segmentally} V{mild|+mildly increased|increased} FDG uptake in the M{+|ascending|transverse|descending|rectosigmoid} colon could be due to bowel physiologic change V{+|but preclude detail evaluation of colon}.",
+        "active": true
+      },
+      {
+        "shortcut": "liver",
+		"location": [],
+		"type": [],
+        "main": "A V{hypodense|isodense|hyperdense} lesion with V{+|mild increased|intense} FDG uptake V{similar to normal hepatic parenchyma+|} in the H{right|bilateral|left} hepatic lobe(s), V{possible hemangioma|possible tumor uptake}. C{Possible block[5] in the block[4] hepatic lobe(s).|Suggest GI OPD further examination.}",
+        "active": true,
+        "description": ""
+      },
+      {
+        "shortcut": "adrenal",
+		"location": [],
+		"type": [],
+        "main": "V{+|Focal|nodular} V{increased|mild increased+|intense} FDG uptake with V{+thickening change|nodular change} in H{the right|bilateral|the left} adrenal gland(s).",
+        "active": true,
+        "description": ""
+      },
+      {
+        "shortcut": "Ldjd",
+		"location": [],
+		"type": [],
+        "main": "Focal H{+mild|} increased FDG uptake in the M{H[right|bilateral|left] L1/L2|H[right|bilateral|left] L2/L3|H[right|bilateral|left] L3/L4|H[right|bilateral|left] L4/L5|H[right|bilateral|left] L5/S1} V{facet joint(s)|junction(s)}, likely due to degenerative arthritis.",
+        "active": true,
+        "description": ""
+      },
+      {
+        "shortcut": "ctabd",
+		"location": [],
+		"type": [],
+        "main": "m{H[right|bilateral|left] renal stone; |H[right|bilateral|left] renal cyst; |H[right|bilateral|left] renal complex cyst; |H[right|bilateral|left] renal angiomyolipoma; |H[right|bilateral|left] adrenal nodule; |H[right|bilateral|left] hepatic cyst; |H[right|bilateral|left] duplex kidney; |fatty liver; |intrahepatic calcification; |splenomegaly; |gallbladder stone;  |s/p cholecystectomy;|accessory spleen;}",
+        "description": "M{H[right|bilateral|left] renal stone; |H[right|bilateral|left] renal cyst; |H[right|bilateral|left] renal complex cyst; |H[right|bilateral|left] renal angiomyolipoma; |H[right|bilateral|left] adrenal nodule; |H[right|bilateral|left] hepatic cyst; |H[right|bilateral|left] duplex kidney; |fatty liver; |intrahepatic calcification; |splenomegaly; |gallbladder stone; |s/p cholecystectomy;|accessory spleen;}",
+        "active": true
+      }
+    ],
+    "Pelvic": [
+      {
+        "shortcut": "mc",
+		"location": [],
+		"type": [],
+        "main": "M{H[Mild|Mildly increased|Increased] FDG accumulation in the uterine cavity| focal increased FDG uptake in the H[right|bilateral|left] tubo-ovarian region(s)}. Physiologic uptake associated with menstrual cycle is likely.",
+        "active": true,
+        "description": ""
+      },
+      {
+        "shortcut": "myoma",
+		"location": [],
+		"type": [],
+        "main": "bulging uterine contour V{|with mild increased FDG uptake|with intense FDG uptake} in the H{right|anterior|posterior|left} uterine wall is possibly due to myoma",
+        "description": "bulging uterine contour V{+|with mild increased FDG uptake|with intense FDG uptake} in the H{right|anterior|posterior|left} uterine wall is possibly due to myoma",
+        "active": true
+      },
+      {
+        "shortcut": "prostate",
+		"location": [],
+		"type": [],
+        "main": "Focal V{+mild|mildly increased} FDG uptake in the H{right|left} portion of prostate, possibly due to prostatic hyperplasia or prostatitis.",
+        "description": "Focal V{+mild|mildly increased} FDG uptake in the H{right|left} portion of prostate, possibly due to physiological uptake or prostatic hyperplasia.",
+        "active": true
+      },
+      {
+        "shortcut": "inguinalln",
+		"location": [],
+		"type": [],
+        "main": "There is mildly increased FDG uptake in H{the right|+bilateral|the left} inguinal small lymph nodes V{+|with fatty hilum}, favoring V{+lymphadenitis|reactive hyperplasia}.",
+        "active": true,
+        "description": ""
+      },
+      {
+        "shortcut": "ctpel",
+		"location": [],
+		"type": [],
+        "main": "M{H[mild|] enlarged prostate;|H[right|bilateral|left] adnexal cyst;|s/p hysterectomy; |H[right|bilateral|left] hydrocele}",
+        "description": "M{H[mild|]enlarged prostate;|H[right|bilateral|left] adnexal cyst;|s/p hysterectomy;}",
+        "active": true
+      },
+      {
+        "shortcut": "gs",
+		"location": [],
+		"type": [],
+        "main": "Focal V{mild|+mildly increased|increased} FDG uptake in the V{+anorectal|anal} region, possibly due to hemorrhoid.",
+        "active": "True",
+        "description": ""
+      }
+    ],
+    "Others": [
+      {
+        "shortcut": "tendi",
+		"location": [],
+		"type": [],
+        "main": "Focal V{mild|mildly increased+|increased} FDG uptake H{in+|lateral to} M{H[the right| bilateral|the left] shoulder joint|H[the right| bilateral|the left] hip joint|H[the right| bilateral|the left] humeral head|H[the right| bilateral|the left] femoral head|greater trochanter of H[the right| bilateral|the left] femur}, likely due to tendinitis.",
+        "description": "Focal V{mild|mildly increased|increased} FDG uptake H{in|lateral to} H{the right| bilateral|the left} V{shoulder joint|hip joint|humeral head|femoral head}, likely due to tendinitis.",
+        "active": true
+      },
+      {
+        "shortcut": "djd1",
+		"location": [],
+		"type": [],
+        "main": "V{Mild|mildly increased|increased} FDG uptake in the M{H[|right|bilateral|left] shoulder|H[|right|bilateral|left] hip|H[|right|bilateral|left] acromioclavicular|H[|right|bilateral|left] sternoclavicular} joint(s), likely due to V{degenerative change|arthritis|capsulitis}.",
+        "description": "V{Mild|mildly increased|increased} FDG uptake in the M{H[|right|bilateral|left] shoulder|H[|right|bilateral|left] hip|H[|right|bilateral|left] acromioclavicular} joint(s), likely due to V{degenerative change|arthritis|capsulitis}.",
+        "active": true
+      },
+      {
+        "shortcut": "djd1",
+		"location": [],
+		"type": [],
+        "main": "V{Mild|Mildly increased|Increased} FDG uptake in H{the right|+bilateral|the left} M{shoulder|hip|facet} joint, likely due to V{degenerative change|arthritis|capsulitis}.",
+        "active": "True",
+        "description": ""
+      }
+    ],
+    "WholeBody": [
+      {
+        "shortcut": "lipoma",
+		"location": [],
+		"type": [],
+        "main": "A fatty mass in the M{H[|right|bilateral|left] neck|H[|right|bilateral|left] shoulder|H[|right|bilateral|left] chest wall|H[|right|bilateral|left] back|H[|right|bilateral|left] flank|H[|right|bilateral|left] buttock|H[|right|bilateral|left] tight}, favoring lipoma.",
+        "active": true,
+        "description": ""
+      },
+      {
+        "shortcut": "bone mets",
+		"location": [],
+		"type": [],
+        "main": "focal H{+|intense} FDG uptake in the M/{H[right|bilateral|left] skull|M[C1|C2|C3|C4|C5|C6|C7]|M[T1|T2|T3|T4|T5|T6|T7|T8|T9|T10|T11|T12]|M[L1|L2|L3|L4|L5]|C/T/L/S-spine|H[right|bilateral|left] rib cages|LE[]th rib|sternum|H[right|bilateral|left] scapula|H[right|bilateral|left] clavicle|sacrum|H[right|bilateral|left] pelvic bones|H[right|bilateral|left] ilium|H[right|bilateral|left] ischium|H[right|bilateral|left] pubis|H[right|bilateral|left] H[proximal|distal] humeri|H[right|bilateral|left] H[proximal|distal] femora},",
+        "description": "focal H{+|intense} FDG uptake in the M{H[|right|bilateral|left] skull|C/T/L/S-spine|H[|right|bilateral|left] rib cages|sternum|H[|right|bilateral|left] scapula|H[|right|bilateral|left] clavicle|H[|right|bilateral|left] pelvis|H[|right|bilateral|left] ilium|H[|right|bilateral|left] ischium|H[|right|bilateral|left] pubis|H[|right|bilateral|left] humeri|H[|right|bilateral|left] femora},",
+        "active": true
+      },
+      {
+        "shortcut": "marrowhyper",
+		"location": [],
+		"type": [],
+        "main": "V{+Diffuse|Heterogenerous|} V{+mild|} increased FDG uptake in the bone marrow of axial skeleton, possibly due to V{anemia-related|C/T-related} bone marrow hyperplasia.",
+        "description": "V{+Diffuse|Heterogenerous|} V{+mild|} increased FDG uptake in the bone marrow of axial skeleton, possibly due to V{+|anemia-related|C/T-related} bone marrow hyperplasia.",
+        "active": true
+      }
+    ],
+    "FollowUp": [
+      {
+        "shortcut": "ccfu",
+		"location": [],
+		"type": [],
+        "main": "Clinical correlation and follow up are recommended.",
+        "active": "True",
+        "description": ""
+      },
+      {
+        "shortcut": "ccfm",
+		"location": [],
+		"type": [],
+        "main": "Clinical correlation and further management are recommended.",
+        "active": true,
+        "description": ""
+      },
+      {
+        "shortcut": "bg",
+		"location": [],
+		"type": [],
+        "main": "V{Blood glucose: LE[] mg/dL.}",
+        "description": "Blood glucose:  mg/dL.",
+        "active": true
+      },
+      {
+        "shortcut": "hcc",
+		"location": [],
+		"type": [],
+        "main": "Clinical correlation with other imaging studies is advised, in view of lower sensitivity of PET for HCC owing to low FDG-avidity nature.",
+        "active": "True",
+        "description": ""
+      },
+      {
+        "shortcut": "less sensitive",
+		"location": [],
+		"type": [],
+        "main": "The sensitivity of FDG PET/CT scan in marginal zone lymphoma is relatively lower due to indolent metabolic nature in marginal zone lymphoma. Suggest other image study correlation.",
+        "active": "True",
+        "description": ""
+      },
+      {
+        "shortcut": "gerd f/u",
+		"location": [],
+		"type": [],
+        "main": "Possible M{reflux esophagitis|+inflammation in the gastric antrum|pyloric region}. Suggest GI OPD follow up, if symptomatic.",
+        "active": "True",
+        "description": ""
+      },
+      {
+        "shortcut": "dentist",
+		"location": [],
+		"type": [],
+        "main": "Possible M{right upper|right lower|left upper|left lower|bilateral upper|bilateral lower|the anterior} dentopathy. Suggest dentist OPD follow up, if symptomatic.",
+        "active": "True",
+        "description": ""
+      },
+      {
+        "shortcut": "fu1y",
+		"location": [],
+		"type": [],
+        "main": "Suggest follow up one year later.",
+        "active": true,
+        "description": ""
+      },
+      {
+        "shortcut": "ldct",
+		"location": [],
+		"type": [],
+        "main": "Suggest follow up with Low-Dose CT and/or FDG PET/CT V{3 months|6 months|+one year} later.",
+        "description": "Suggest follow up with LDCT V{3 months|6 months|+one year} later.",
+        "active": true
+      },
+      {
+        "shortcut": "nore",
+		"location": [],
+		"type": [],
+        "main": "V{No obvious hypermetabolic lesion is detected to suggest evidence of tumoral recurrence or metastasis|No obvious hypermetabolic lesion is detected to suggest evidence of tumoral uptake}. V{+|Regular clinical follow up is recommended.}",
+        "active": "True",
+        "description": ""
+      },
+      {
+        "shortcut": "opd",
+		"location": [],
+		"type": [],
+        "main": "Suggest G3{ENT|dentist|chest|chest surgery|cardiologic|GI|GS|urologic|endocrinologic|gynecologic|dermatalogic|breast surgery|orthopedic|rehabilitation} OPD V{+follow up|cross checkup|further survey} V{+| if symptomatic}.",
+        "description": "Suggest G3{ENT|dentist|chest|chest surgery|cardiologic|GI|GS|urologic|endocrinologic|gynecologic|dermatalogic|breast surgery|orthopedic} OPD V{+follow up|cross checkup|further survey} V{+| if symptomatic}.",
+        "active": true
+      },
+      {
+        "shortcut": "bfu",
+		"location": [],
+		"type": [],
+        "main": "Breast ultrasound and mammography regular follow up annually is recommended. ",
+        "description": "breastfu",
+        "active": true
+      },
+      {
+        "shortcut": "stage",
+		"location": [],
+		"type": [],
+        "main": "The tentative imaging stage:",
+        "active": "True",
+        "description": ""
+      },
+      {
+        "shortcut": "lgi",
+		"location": [],
+		"type": [],
+        "main": "V{+Optional baseline colonoscopy is suggested if not done in recent 2 years|Suggest colonoscopy correlation}.",
+        "active": true,
+        "description": ""
+      }
+    ],
+    "Abbreviation": [
+      {
+        "shortcut": "rul",
+		"location": [],
+		"type": [],
+        "main": "right upper lungV{(LE[]cm)|(LE[]cm, image:LE[])|(LE[]cm, maxSUV:LE[])|(LE[]xLE[]cm, maxSUV:LE[])|(LE[]xLE[]xLE[]cm, maxSUV:LE[])}",
+        "description": "RULV{(LE[]cm)|(LE[]cm, image:LE[])|(LE[]cm, maxSUV:LE[])|(LE[]xLE[]cm, maxSUV:LE[])|(LE[]xLE[]xLE[]cm, maxSUV:LE[])}",
+        "active": true
+      },
+      {
+        "shortcut": "rml",
+		"location": [],
+		"type": [],
+        "main": "right middle lungV{(LE[]cm)|(LE[]cm, image:LE[])|(LE[]cm, maxSUV:LE[])|(LE[]xLE[]cm, maxSUV:LE[])|(LE[]xLE[]xLE[]cm, maxSUV:LE[])}",
+        "description": "RMLV{(LE[]cm)|(LE[]cm, image:LE[])|(LE[]cm, maxSUV:LE[])|(LE[]xLE[]cm, maxSUV:LE[])|(LE[]xLE[]xLE[]cm, maxSUV:LE[])}",
+        "active": true
+      },
+      {
+        "shortcut": "rll",
+		"location": [],
+		"type": [],
+        "main": "right lower lungV{(LE[]cm)|(LE[]cm, image:LE[])|(LE[]cm, maxSUV:LE[])|(LE[]xLE[]cm, maxSUV:LE[])|(LE[]xLE[]xLE[]cm, maxSUV:LE[])}",
+        "description": "RLLV{(LE[]cm)|(LE[]cm, image:LE[])|(LE[]cm, maxSUV:LE[])|(LE[]xLE[]cm, maxSUV:LE[])|(LE[]xLE[]xLE[]cm, maxSUV:LE[])}",
+        "active": true
+      },
+      {
+        "shortcut": "lul",
+		"location": [],
+		"type": [],
+        "main": "left upper lungV{(LE[]cm)|(LE[]cm, image:LE[])|(LE[]cm, maxSUV:LE[])|(LE[]xLE[]cm, maxSUV:LE[])|(LE[]xLE[]xLE[]cm, maxSUV:LE[])}",
+        "description": "LULV{(LE[]cm)|(LE[]cm, image:LE[])|(LE[]cm, maxSUV:LE[])|(LE[]xLE[]cm, maxSUV:LE[])|(LE[]xLE[]xLE[]cm, maxSUV:LE[])}",
+        "active": true
+      },
+      {
+        "shortcut": "lll",
+		"location": [],
+		"type": [],
+        "main": "left lower lungV{(LE[]cm)|(LE[]cm, image:LE[])|(LE[]cm, maxSUV:LE[])|(LE[]xLE[]cm, maxSUV:LE[])|(LE[]xLE[]xLE[]cm, maxSUV:LE[])}",
+        "description": "LLLV{(LE[]cm)|(LE[]cm, image:LE[])|(LE[]cm, maxSUV:LE[])|(LE[]xLE[]cm, maxSUV:LE[])|(LE[]xLE[]xLE[]cm, maxSUV:LE[])}",
+        "active": true
+      },
+      {
+        "shortcut": "nonew",
+		"location": [],
+		"type": [],
+        "main": "No new focus of abnormal hypermetabolic lesion to suggest evidence of recurrence or metastasis. ",
+        "description": "nonew hyper",
+        "active": true
+      }
+    ],
+    "Cancer": [
+      {
+        "shortcut": "lungca",
+		"location": [],
+		"type": [],
+        "main": "H{A|} H{nodule|tumor|mass} H{with|with focal|with diffuse|with mottling} V{mild increased|increased|intense} FDG uptake in the M{H[apical|posterior|anterior] RUL|H[lateral|medial] RML|H[superior|medial|anterior|lateral|posterior] RLL|H[apical|posterior|anterior|lingula] LUL|H[superior|medial|anterior|lateral|posterior] LLL} H{,|, extent to|involving} M{H[right|left] chest wall|pericardium|H[right|left] mediastinum|diaphragm|heart|LE[] H[artery|vein|aorta]|carina|trachea|esophagus|TLE[] vertebra} M{and satellite nodule(s)|and separate H[tumor(s)|nodule(s)] in the LE[]}",
+        "description": "Lung cancer",
+        "active": true
+      },
+      {
+        "shortcut": "nasoca",
+		"location": [],
+		"type": [],
+        "main": "V{|A bulged tumor with H[intense|moderate increased] FDG uptake in the H[right|bilateral|left] nasopharynx H[|involving]} M{H[right|bilateral|left] oropharynx |H[right|bilateral|left] nasal cavity |H[right|bilateral|left] parapharyngeal space |H[right|bilateral|left] medial pterygoid muscle |H[right|bilateral|left] lateral pterygoid muscle |H[right|bilateral|left] prevertebral muscle |skull base |LE[] vertebra |pterygoid structures |paranasal sinuse |intracranial content  |cranial nerves |hypopharynx |orbit |parotid gland}\nV{| H[A|Several|multiple] H[|enlarged] lymph node(s) with H[intense|moderate increased] FDG uptake in the} M{right cervical level M[I|II|III|IV|V|VI]|bilateral cervical level M[I|II|III|IV|V|VI]|left cervical level M[I|II|III|IV|V|VI]}",
+        "description": "naso ca",
+        "active": true
+      },
+      {
+        "shortcut": "oralca",
+		"location": [],
+		"type": [],
+        "main": "H{A nodule|A mass|A tumor} H{with|with focal|with diffuse|with mottling} V{mild increased|increased|intense} FDG uptake in the M{H[right|bilateral|left] tongue|H[right|bilateral|left] buccal|H[right|bilateral|left] H[upper|lower] lip|H[right|bilateral|left] H[upper|lower] gum|H[right|bilateral|left] H[hard|soft] palate|H[right|left] retromolar region} V{|(size:LE[],maxSUV:LE[])} H{,|,extend to|involving}  M{through cortical LE[] bone|floor of mouth|skin of face|H[right|bilateral|left] H[maxillary|ethmoid|sphnoid] sinus|H[right|bilateral|left] masticator space|H[right|bilateral|left] pterygoid plates|H[right|bilateral|left] skull base|encases H[right|bilateral|left] internal carotid artery} ",
+        "description": "Oral cancer",
+        "active": true
+      },
+      {
+        "shortcut": "wlaps",
+		"location": [],
+		"type": [],
+        "main": "H{A|Few|Several|Numerous|Multiple} H{small|borderline-sized|various-sized|enlarged} lymph nodes with H{nodular|foci of|focal|diffuse} H{mild increased|moderate increased|increased|intense} FDG uptake in the M/{H[right|bilateral|left] M[parotid gland|occipital]} M/{right cervical level M[I|II|III|IV|V|VI]|bilateral cervical level M[I|II|III|IV|V|VI]|left cervical level M[I|II|III|IV|V|VI]|H[right|bilateral|left] supraclavicular|H[right|bilateral|left] para-tracheal|H[right|bilateral|left] mediastinal|H[right|bilateral|left] hilar|H[right|bilateral|left] internal mammary| paracardiac|paragastric|periceliac |para-aortic/caval|H[right|bilateral|left] M[common|external|internal] iliac|H[right|bilateral|left] pelvic side wall|H[right|bilateral|left] inguinal|LE[]} region(s).",
+        "description": "Whold body LAPs",
+        "active": true
+      }
+    ]
+  },
+  "Seeting": {
+    "Send report by AHK": true,
+    "Adding line number when sending": true,
+    "Spelling check": true,
+    "Ask checklist": true
+  }
+}

@@ -1,1 +1,411 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/Myweb/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/logo192.png"/><link rel="manifest" href="/Myweb/manifest.json"/><title>React App</title></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script>!function(e){function r(r){for(var n,p,i=r[0],l=r[1],a=r[2],c=0,s=[];c<i.length;c++)p=i[c],Object.prototype.hasOwnProperty.call(o,p)&&o[p]&&s.push(o[p][0]),o[p]=0;for(n in l)Object.prototype.hasOwnProperty.call(l,n)&&(e[n]=l[n]);for(f&&f(r);s.length;)s.shift()();return u.push.apply(u,a||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,i=1;i<t.length;i++){var l=t[i];0!==o[l]&&(n=!1)}n&&(u.splice(r--,1),e=p(p.s=t[0]))}return e}var n={},o={1:0},u=[];function p(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,p),t.l=!0,t.exports}p.m=e,p.c=n,p.d=function(e,r,t){p.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},p.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},p.t=function(e,r){if(1&r&&(e=p(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(p.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)p.d(t,n,function(r){return e[r]}.bind(null,n));return t},p.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return p.d(r,"a",r),r},p.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},p.p="/";var i=this["webpackJsonpmymi-app"]=this["webpackJsonpmymi-app"]||[],l=i.push.bind(i);i.push=r,i=i.slice();for(var a=0;a<i.length;a++)r(i[a]);var f=l;t()}([])</script><script src="/Myweb/static/js/2.a6dfaaf4.chunk.js"></script><script src="/Myweb/static/js/main.00f6109d.chunk.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoloReport — 醫學影像報告編輯器</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header id="app-header">
+  <div class="header-left">
+    <div class="app-logo">
+      <span class="logo-icon">⚕</span>
+      <span class="logo-text">SoloReport</span>
+    </div>
+    <div class="profile-group">
+      <label for="profile-select" class="profile-label">使用者</label>
+      <select id="profile-select" title="切換使用者"></select>
+      <button id="btn-manage-profiles" class="btn btn-sm" title="管理使用者">⚙</button>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="dept-date-wrap">
+      <input type="date" id="dept-date" title="科室病人清單日期">
+      <button id="btn-fetch-patients" class="btn btn-sm btn-outline" title="重新載入科室病人清單">↺ 載入清單</button>
+    </div>
+    <div id="ext-status" class="ext-status" title="My-Assist-V3 連線狀態">
+      <span class="ext-dot"></span>
+      <span class="ext-label">My-Assist</span>
+    </div>
+    <button id="btn-manage-templates" class="btn btn-outline-primary btn-sm">模板管理</button>
+    <button id="btn-import" class="btn btn-outline btn-sm">匯入</button>
+    <button id="btn-export" class="btn btn-outline btn-sm">匯出</button>
+  </div>
+</header>
+
+<!-- ========== MAIN LAYOUT ========== -->
+<div id="app-main">
+
+  <!-- ===== LEFT PANEL (30%) ===== -->
+  <aside id="left-panel">
+
+    <!-- Embed 模式工具列（profile 選擇 combobox + 模板管理 / 匯入 / 匯出）
+         內容由 app.js 在 embed 初始化時從 #app-header 搬入 -->
+    <div id="embed-left-toolbar"></div>
+
+    <!-- Left filter buttons (3 rows) -->
+    <div id="left-filters" class="filter-panel">
+      <div class="filter-row" id="left-filter-category">
+        <span class="filter-label">類別</span>
+        <div class="filter-btns"></div>
+      </div>
+      <div class="filter-row" id="left-filter-location">
+        <span class="filter-label">部位</span>
+        <div class="filter-btns"></div>
+      </div>
+      <div class="filter-row" id="left-filter-type">
+        <span class="filter-label">型態</span>
+        <div class="filter-btns"></div>
+      </div>
+    </div>
+
+    <!-- Template tree view -->
+    <div id="template-tree-container">
+      <div id="template-tree"></div>
+    </div>
+
+    <!-- Left panel actions -->
+    <div class="panel-footer">
+      <button id="btn-add-template" class="btn btn-primary btn-sm btn-block">＋ 新增模板</button>
+    </div>
+  </aside>
+
+  <!-- ===== RIGHT PANEL (70%) ===== -->
+  <main id="right-panel">
+
+    <!-- Patient info bar -->
+    <div id="patient-bar">
+      <div class="patient-fields">
+        <div class="patient-field">
+          <label>病患 ID</label>
+          <div class="report-combobox" id="patient-id-wrap">
+            <input type="text" id="patient-id" placeholder="輸入病患 ID" autocomplete="off">
+            <button id="btn-patient-dropdown" class="report-dropdown-btn" title="選擇已存檔報告">▾</button>
+            <button id="btn-add-patient" class="report-dropdown-btn" title="新增病患（格式：ID 姓名）">＋</button>
+            <ul id="patient-dropdown" class="patient-dropdown" hidden></ul>
+          </div>
+        </div>
+        <div class="patient-field">
+          <label>姓名</label>
+          <input type="text" id="patient-name" placeholder="病患姓名">
+        </div>
+        <div class="patient-field">
+          <label>檢查日期</label>
+          <input type="date" id="exam-date">
+        </div>
+        <div class="patient-field">
+          <label>檢查類型</label>
+          <select id="exam-modality">
+            <option value="PET/CT">PET/CT</option>
+            <option value="CT">CT</option>
+            <option value="MRI">MRI</option>
+            <option value="X-Ray">X-Ray</option>
+            <option value="Ultrasound">Ultrasound</option>
+            <option value="NM">Nuclear Medicine</option>
+          </select>
+        </div>
+        <div class="patient-field autosave-field">
+          <label class="autosave-label">
+            <input type="checkbox" id="chk-autosave" checked>
+            自動儲存
+          </label>
+        </div>
+      </div>
+      <div class="patient-actions">
+        <button id="btn-download-reports" class="btn btn-outline btn-sm">⬇ 下載報告</button>
+        <button id="btn-save-report" class="btn btn-success btn-sm">💾 儲存報告</button>
+        <button id="btn-report-history" class="btn btn-outline btn-sm">📋 歷史記錄</button>
+      </div>
+    </div>
+
+    <!-- Right filter buttons + quick template buttons -->
+    <div id="right-quick-section">
+      <div id="report-filters" class="filter-panel">
+        <!-- 預留：病患其他報告的篩選器 -->
+      </div>
+      <div id="quick-template-buttons" class="quick-buttons"></div>
+    </div>
+
+    <!-- Report body：editor + history note sidebar -->
+    <div id="report-body">
+
+      <!-- Report editor -->
+      <div id="report-editor-wrapper">
+        <!-- Section tabs -->
+        <div id="report-tabs">
+          <button class="tab-btn active" data-section="findings">Findings</button>
+          <button class="tab-btn" data-section="comments">Comments</button>
+          <div class="tab-spacer"></div>
+          <button id="btn-history-note" class="btn btn-sm btn-ghost" title="開啟 / 關閉 History Note">🗒 History Note</button>
+          <button id="btn-clear-report" class="btn btn-sm btn-ghost" title="清除本節">✕ 清除</button>
+          <button id="btn-copy-report" class="btn btn-sm btn-ghost" title="複製全文">⎘ 複製全文</button>
+        </div>
+
+        <!-- Textareas -->
+        <div id="report-editor-container">
+          <div class="editor-with-ln active" id="editor-wrap-findings">
+            <div class="ln-col" id="ln-findings"></div>
+            <textarea id="report-findings" class="report-textarea" placeholder="Findings..."></textarea>
+          </div>
+          <div class="editor-with-ln" id="editor-wrap-comments">
+            <div class="ln-col" id="ln-comments"></div>
+            <textarea id="report-comments" class="report-textarea" placeholder="Comments / Notes..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- History Note sidebar -->
+      <div id="history-note-panel">
+        <div class="hn-header">
+          <div class="hn-title">
+            <span>History Note</span>
+            <span id="hn-patient-label" class="hn-patient-label"></span>
+          </div>
+          <div class="hn-header-actions">
+            <button id="btn-hn-preview" class="btn btn-xs btn-ghost" title="切換預覽 / 原文">👁 預覽</button>
+            <button id="btn-hn-close" class="btn-close" title="關閉">✕</button>
+          </div>
+        </div>
+        <!-- 編輯模式 -->
+        <textarea id="history-note-textarea" class="hn-textarea"
+          placeholder="支援 Markdown 語法…&#10;&#10;# 標題&#10;**粗體**  *斜體*&#10;- 清單項目&#10;`程式碼`&#10;&#10;（自動儲存，每位病患各一份）"></textarea>
+        <!-- 預覽模式 -->
+        <div id="hn-preview" class="hn-preview" hidden></div>
+        <div class="hn-footer">
+          <span id="hn-mode-label" class="hn-mode-label">Markdown</span>
+          <span id="hn-save-status" class="hn-save-status"></span>
+        </div>
+      </div>
+
+    </div><!-- /#report-body -->
+
+  </main>
+</div>
+<!-- END #app-main -->
+
+
+<!-- ============================================================
+     MODALS
+     ============================================================ -->
+
+<!-- Modal backdrop -->
+<div id="modal-backdrop"></div>
+
+<!-- ---- Template Options Modal ---- -->
+<div id="options-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="options-modal-title">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="options-modal-title">選擇選項</h3>
+      <button class="btn-close" data-close-modal="options-modal">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="options-shortcut-label"></p>
+      <div id="options-form-container"></div>
+    </div>
+    <div class="modal-footer">
+      <button id="btn-options-draft" class="btn btn-ghost">暫存</button>
+      <button class="btn btn-ghost" data-close-modal="options-modal">取消</button>
+      <button id="btn-options-insert" class="btn btn-primary">插入報告</button>
+    </div>
+  </div>
+</div>
+
+<!-- ---- Template Editor Modal ---- -->
+<div id="template-editor-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="te-modal-title">
+  <div class="modal-content modal-lg">
+    <div class="modal-header">
+      <h3 id="te-modal-title">新增模板</h3>
+      <button class="btn-close" data-close-modal="template-editor-modal">✕</button>
+    </div>
+    <div class="modal-body modal-body-split">
+
+      <!-- Left: form fields -->
+      <div class="te-left">
+        <div class="form-row">
+          <div class="form-group half">
+            <label for="te-category">類別</label>
+            <div class="input-with-btn">
+              <select id="te-category"></select>
+              <button id="btn-te-add-cate" class="btn btn-sm btn-outline" title="新增類別">＋</button>
+            </div>
+          </div>
+          <div class="form-group half">
+            <label for="te-shortcut">快捷字</label>
+            <input type="text" id="te-shortcut" placeholder="英數字 (e.g. lesion)" maxlength="40">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="te-description">說明</label>
+          <input type="text" id="te-description" placeholder="模板說明文字">
+        </div>
+        <div class="form-row">
+          <div class="form-group half">
+            <label>部位標籤</label>
+            <div id="te-locations" class="tag-checkboxes"></div>
+          </div>
+          <div class="form-group half">
+            <label>型態標籤</label>
+            <div id="te-types" class="tag-checkboxes"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="inline-label">
+            <input type="checkbox" id="te-active" checked>
+            <span>啟用此模板</span>
+          </label>
+        </div>
+        <div class="form-group te-main-group">
+          <label for="te-main">模板內容 <span class="label-hint">(DSL)</span></label>
+          <textarea id="te-main" class="dsl-textarea" placeholder="輸入模板 DSL 內容，例如：&#10;V{正常|異常} FDG uptake in the H{right|bilateral|left} lung."></textarea>
+        </div>
+        <div class="dsl-help">
+          <details>
+            <summary>DSL 語法提示</summary>
+            <table class="dsl-table">
+              <tr><td><code>H{a|b|c}</code></td><td>橫向單選 (radio)</td></tr>
+              <tr><td><code>V{a|b|c}</code></td><td>縱向單選 (radio)</td></tr>
+              <tr><td><code>M{a|b|c}</code></td><td>複選 (checkbox)</td></tr>
+              <tr><td><code>m{a|b|c}</code></td><td>複選 (空格連接)</td></tr>
+              <tr><td><code>G3{a|b|c|d}</code></td><td>3欄格狀複選</td></tr>
+              <tr><td><code>C{a|b}</code></td><td>下拉選單</td></tr>
+              <tr><td><code>LE[]</code></td><td>文字輸入框</td></tr>
+              <tr><td><code>\+option</code></td><td>設為預設值（+ 可直接使用）</td></tr>
+              <tr><td><code>block[0]</code></td><td>引用第1個選項結果</td></tr>
+            </table>
+          </details>
+        </div>
+      </div>
+
+      <!-- Right: live preview -->
+      <div class="te-right">
+        <div class="preview-header">
+          <span>即時預覽</span>
+          <button id="btn-te-preview-refresh" class="btn btn-sm btn-ghost" title="重新整理預覽">↺</button>
+        </div>
+        <div id="te-preview-container" class="preview-container"></div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button id="btn-te-delete" class="btn btn-danger hidden">刪除模板</button>
+      <div class="footer-right">
+        <button class="btn btn-ghost" data-close-modal="template-editor-modal">取消</button>
+        <button id="btn-te-save" class="btn btn-primary">儲存</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---- Template Manager Modal ---- -->
+<div id="template-manager-modal" class="modal" role="dialog" aria-modal="true">
+  <div class="modal-content modal-lg">
+    <div class="modal-header">
+      <h3>模板管理</h3>
+      <button class="btn-close" data-close-modal="template-manager-modal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="tm-layout">
+        <!-- Category list -->
+        <div class="tm-col tm-col-left">
+          <div class="tm-col-header">
+            <span>類別</span>
+            <button id="btn-tm-add-cate" class="btn btn-xs btn-outline">＋</button>
+          </div>
+          <ul id="tm-category-list" class="tm-list"></ul>
+        </div>
+        <!-- Template list -->
+        <div class="tm-col tm-col-right">
+          <div class="tm-col-header">
+            <span>模板</span>
+            <button id="btn-tm-add-template" class="btn btn-xs btn-primary">＋ 新增</button>
+          </div>
+          <ul id="tm-template-list" class="tm-list"></ul>
+          <div class="tm-actions">
+            <button id="btn-tm-edit"   class="btn btn-sm btn-outline" disabled>✎ 編輯</button>
+            <button id="btn-tm-delete" class="btn btn-sm btn-danger"  disabled>✕ 刪除</button>
+            <button id="btn-tm-up"     class="btn btn-sm btn-outline" disabled>↑</button>
+            <button id="btn-tm-down"   class="btn btn-sm btn-outline" disabled>↓</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---- Profile Manager Modal ---- -->
+<div id="profile-modal" class="modal" role="dialog" aria-modal="true">
+  <div class="modal-content modal-md">
+    <div class="modal-header">
+      <h3>使用者管理</h3>
+      <button class="btn-close" data-close-modal="profile-modal">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- 使用者列表 -->
+      <ul id="profile-list" class="profile-list"></ul>
+      <div class="form-group">
+        <label>建立新使用者</label>
+        <div class="input-row">
+          <input type="text" id="new-profile-name" placeholder="使用者名稱" maxlength="40">
+          <button id="btn-create-profile" class="btn btn-primary btn-sm">建立</button>
+        </div>
+      </div>
+
+      <hr class="modal-divider">
+
+      <!-- 全域部位清單 -->
+      <div class="form-group">
+        <label class="label-sm">身體部位清單（全域）</label>
+        <div id="global-location-tags" class="tag-list"></div>
+        <div class="input-row mt-4">
+          <input type="text" id="new-location-name" placeholder="新增部位" maxlength="40">
+          <button id="btn-add-location" class="btn btn-outline btn-sm">新增</button>
+        </div>
+      </div>
+
+      <!-- 全域型態清單 -->
+      <div class="form-group">
+        <label class="label-sm">病灶型態清單（全域）</label>
+        <div id="global-type-tags" class="tag-list"></div>
+        <div class="input-row mt-4">
+          <input type="text" id="new-type-name" placeholder="新增型態" maxlength="40">
+          <button id="btn-add-type" class="btn btn-outline btn-sm">新增</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---- Report History Modal ---- -->
+<div id="history-modal" class="modal" role="dialog" aria-modal="true">
+  <div class="modal-content modal-lg">
+    <div class="modal-header">
+      <h3>歷史報告</h3>
+      <button class="btn-close" data-close-modal="history-modal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="history-search">
+        <input type="text" id="history-search" placeholder="搜尋病患 ID 或姓名...">
+        <button id="btn-clear-all-reports" class="btn btn-danger btn-sm">🗑 全部清除</button>
+      </div>
+      <div id="history-list" class="history-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ---- Toast notification ---- -->
+<div id="toast" class="toast" role="alert"></div>
+
+
+<!-- ========== SCRIPTS ========== -->
+<script src="js/utils.js"></script>
+<script src="js/makeOption.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/wordlist.js"></script>
+<script src="js/autocomplete.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>

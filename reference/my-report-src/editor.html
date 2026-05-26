@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>My EReport — Editor</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bar-h: 48px;
+    --font: 'Consolas', 'Courier New', monospace;
+    --font-size: 14px;
+    --line-h: 1.6;
+    --ln-w: 52px;
+    --bar-bg: #1e1e2e;
+    --bar-fg: #cdd6f4;
+    --editor-bg: #1e1e2e;
+    --editor-fg: #cdd6f4;
+    --ln-bg: #181825;
+    --ln-fg: #585b70;
+    --ln-fg-active: #a6adc8;
+    --border: #313244;
+    --btn-primary: #89b4fa;
+    --btn-primary-fg: #1e1e2e;
+    --btn-ok: #a6e3a1;
+    --btn-ok-fg: #1e1e2e;
+    --btn-secondary: #45475a;
+    --btn-secondary-fg: #cdd6f4;
+    --btn-danger: #f38ba8;
+    --select-bg: #313244;
+    --select-fg: #cdd6f4;
+    --status-bg: #181825;
+    --panel-bg: #24273a;
+    --panel-border: #494d64;
+  }
+
+  body {
+    font-family: -apple-system, sans-serif;
+    background: var(--editor-bg);
+    color: var(--editor-fg);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── Top bar ─────────────────────────────── */
+  .top-bar {
+    flex-shrink: 0;
+    height: var(--bar-h);
+    background: var(--bar-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+  }
+  .top-bar label { font-size: 12px; color: var(--ln-fg-active); white-space: nowrap; }
+  .top-bar select {
+    background: var(--select-bg);
+    color: var(--select-fg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 6px;
+    font-size: 12px;
+  }
+  #shortcut-select { flex: 1; }
+  #dirty-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--btn-danger);
+    opacity: 0;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+  }
+  #dirty-dot.visible { opacity: 1; }
+
+  /* ── Main split layout ───────────────────── */
+  .main-area {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+  }
+
+  /* ── Left: code editor ───────────────────── */
+  .editor-side {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    border-right: 2px solid var(--panel-border);
+  }
+  .editor-wrap {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    font-family: var(--font);
+    font-size: var(--font-size);
+    line-height: var(--line-h);
+  }
+  #line-nums {
+    width: var(--ln-w);
+    flex-shrink: 0;
+    background: var(--ln-bg);
+    border-right: 1px solid var(--border);
+    overflow: hidden;
+    user-select: none;
+    padding: 8px 0;
+    text-align: right;
+  }
+  #line-nums span {
+    display: block;
+    padding: 0 10px 0 0;
+    color: var(--ln-fg);
+    font-size: var(--font-size);
+    line-height: var(--line-h);
+    transition: color 0.1s;
+  }
+  #line-nums span.active { color: var(--ln-fg-active); }
+  #editor {
+    flex: 1;
+    background: var(--editor-bg);
+    color: var(--editor-fg);
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 8px 16px;
+    font-family: var(--font);
+    font-size: var(--font-size);
+    line-height: var(--line-h);
+    overflow-y: scroll;
+    overflow-x: auto;
+    white-space: pre;
+    tab-size: 2;
+    caret-color: var(--btn-primary);
+  }
+  #editor::selection { background: #89b4fa33; }
+
+  /* ── Right: options form panel ───────────── */
+  .form-side {
+    width: 420px;
+    min-width: 300px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--panel-bg);
+    overflow: hidden;
+  }
+  .form-side-title {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ln-fg-active);
+    background: var(--ln-bg);
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  #form-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #cdd6f4;
+  }
+  #form-scroll::-webkit-scrollbar { width: 6px; }
+  #form-scroll::-webkit-scrollbar-track { background: transparent; }
+  #form-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* form element styles inside options panel */
+  #form-scroll form { display: block; }
+  #form-scroll label { color: #cdd6f4; }
+  #form-scroll input[type=radio],
+  #form-scroll input[type=checkbox] { accent-color: var(--btn-primary); }
+  #form-scroll select {
+    background: var(--select-bg); color: var(--select-fg);
+    border: 1px solid var(--border); border-radius: 3px;
+    padding: 2px 4px; font-size: 12px;
+  }
+  #form-scroll input[type=text] {
+    background: #313244; color: #cdd6f4;
+    border: 1px solid var(--border); border-radius: 3px;
+    padding: 2px 5px; font-size: 12px;
+  }
+  /* green compound rows */
+  #form-scroll div[style*="lightgreen"] {
+    background: #1e3a2e !important;
+    border-radius: 4px;
+  }
+  .form-empty {
+    color: var(--ln-fg);
+    font-size: 12px;
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  /* ── Form action bar ─────────────────────── */
+  .form-actions {
+    flex-shrink: 0;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    padding: 10px 14px;
+    border-top: 1px solid var(--border);
+    background: var(--ln-bg);
+  }
+  .btn {
+    padding: 6px 18px;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .btn:hover { opacity: 0.82; }
+  .btn-save     { background: var(--btn-primary);   color: var(--btn-primary-fg); }
+  .btn-ok       { background: var(--btn-ok);        color: var(--btn-ok-fg); }
+  .btn-cancel   { background: var(--btn-secondary); color: var(--btn-secondary-fg); }
+
+  /* ── Status bar ──────────────────────────── */
+  .status-bar {
+    flex-shrink: 0;
+    height: 22px;
+    background: var(--status-bg);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 20px;
+    font-size: 11px;
+    color: var(--ln-fg-active);
+  }
+  #status-pos   { min-width: 90px; }
+  #status-msg   { }
+  #status-chars { margin-left: auto; }
+
+  /* ── Result overlay ──────────────────────── */
+  #result-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+  }
+  #result-overlay.show { display: flex; }
+  .result-box {
+    background: #24273a;
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    width: 560px;
+    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  }
+  .result-box-title {
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ln-fg-active);
+    border-bottom: 1px solid var(--border);
+  }
+  #result-text {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 16px;
+    white-space: pre-wrap;
+    font-family: var(--font);
+    font-size: 13px;
+    color: #cdd6f4;
+    line-height: 1.6;
+  }
+  .result-box-actions {
+    padding: 10px 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <label for="profile-select">Profile</label>
+  <select id="profile-select"></select>
+
+  <label for="shortcut-select">Template</label>
+  <select id="shortcut-select">
+    <option value="">— 選擇樣板 —</option>
+  </select>
+
+  <span id="dirty-dot" title="有未儲存的變更"></span>
+</div>
+
+<div class="main-area">
+
+  <!-- Left: raw template editor -->
+  <div class="editor-side">
+    <div class="editor-wrap">
+      <div id="line-nums"><span>1</span></div>
+      <textarea id="editor" spellcheck="false" autocomplete="off"
+                autocorrect="off" autocapitalize="off"></textarea>
+    </div>
+  </div>
+
+  <!-- Right: options form panel -->
+  <div class="form-side">
+    <div class="form-side-title">選項預覽</div>
+    <div id="form-scroll">
+      <p class="form-empty">← 選擇樣板後顯示選項</p>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-cancel" id="btn-cancel">Cancel</button>
+      <button class="btn btn-save"   id="btn-save">Save</button>
+      <button class="btn btn-ok"     id="btn-ok">OK</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="status-bar">
+  <span id="status-pos">行 1，欄 1</span>
+  <span id="status-msg"></span>
+  <span id="status-chars">0 字元</span>
+</div>
+
+<!-- Result overlay (shown after OK) -->
+<div id="result-overlay">
+  <div class="result-box">
+    <div class="result-box-title">輸出結果</div>
+    <div id="result-text"></div>
+    <div class="result-box-actions">
+      <button class="btn btn-save" id="btn-copy">&#128203; 複製</button>
+      <button class="btn btn-cancel" id="btn-result-close">關閉</button>
+    </div>
+  </div>
+</div>
+
+<script src="utils.js"></script>
+<script src="makeOption.js"></script>
+<script src="editor.js"></script>
+</body>
+</html>

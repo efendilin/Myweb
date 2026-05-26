@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>My EReport</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Roboto, Arial, sans-serif; font-size: 13px; width: 220px; min-height: 400px; }
+
+  .app-bar {
+    position: fixed; top: 0; left: 0; right: 0; height: 48px;
+    background: #1976d2; color: #fff;
+    display: flex; align-items: center; padding: 0 8px; gap: 6px; z-index: 100;
+  }
+  .app-bar button {
+    background: none; border: none; color: #fff; cursor: pointer;
+    font-size: 18px; line-height: 1; padding: 4px;
+  }
+  .app-bar button:hover { background: rgba(255,255,255,0.15); border-radius: 50%; }
+  #profile-select {
+    flex: 1; font-size: 12px; padding: 2px 4px;
+    border: none; border-radius: 3px; background: rgba(255,255,255,0.9);
+  }
+
+  #tree-container { margin-top: 52px; overflow-y: auto; max-height: calc(100vh - 52px); padding: 4px; }
+
+  .tree-root { list-style: none; padding: 0; margin: 0; }
+  .tree-category { margin: 2px 0; }
+  .tree-category-label {
+    cursor: pointer; font-weight: bold; padding: 3px 6px; display: block;
+    background: #e0e0e0; border-radius: 3px; user-select: none; font-size: 12px;
+  }
+  .tree-category-label:hover { background: #bdbdbd; }
+  .tree-items { list-style: none; padding-left: 12px; margin: 0; }
+  .tree-item {
+    cursor: pointer; padding: 2px 6px; border-radius: 2px; font-size: 12px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .tree-item:hover { background: #1976d2; color: #fff; }
+</style>
+</head>
+<body>
+<div class="app-bar">
+  <button id="btn-options" title="Options">&#9881;</button>
+  <select id="profile-select"></select>
+</div>
+<div id="tree-container"></div>
+<script src="utils.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

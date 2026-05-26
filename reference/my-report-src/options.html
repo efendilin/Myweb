@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>My EReport — Options</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Roboto, Arial, sans-serif; font-size: 13px; }
+
+  .app-bar {
+    position: fixed; top: 0; left: 0; right: 0; height: 48px;
+    background: #282c34; color: #fff;
+    display: flex; align-items: center; padding: 0 12px; gap: 8px; z-index: 200;
+  }
+  .app-bar span.title { font-size: 15px; font-weight: bold; flex: 1; }
+  .app-bar button {
+    background: rgba(255,255,255,0.15); border: none; color: #fff; cursor: pointer;
+    font-size: 12px; padding: 4px 10px; border-radius: 3px;
+  }
+  .app-bar button:hover { background: rgba(255,255,255,0.28); }
+  #profile-select {
+    font-size: 12px; padding: 2px 4px; border: none; border-radius: 3px;
+    background: rgba(255,255,255,0.9);
+  }
+
+  .main-layout { margin-top: 56px; padding: 12px; display: flex; flex-direction: row; gap: 12px; }
+
+  /* Action buttons */
+  .btn-col {
+    display: flex; flex-direction: column; gap: 6px; width: 160px; flex-shrink: 0;
+  }
+  .btn-col button {
+    padding: 6px 10px; border: none; border-radius: 4px; cursor: pointer;
+    background: #1976d2; color: #fff; font-size: 12px; text-align: left;
+  }
+  .btn-col button:hover { background: #115293; }
+  .btn-col button.danger { background: #d32f2f; }
+  .btn-col button.danger:hover { background: #9a0007; }
+
+  /* Lists */
+  .list-row { display: flex; flex-direction: row; gap: 12px; flex: 1; }
+  .list-col { display: flex; flex-direction: column; min-width: 220px; }
+  .list-col label { font-weight: bold; font-size: 12px; margin-bottom: 4px; color: #444; }
+  .list-box {
+    border: 1px solid #ccc; border-radius: 4px;
+    height: 350px; overflow-y: auto; background: #fff;
+  }
+  .list-item {
+    display: flex; align-items: center; padding: 5px 8px;
+    border-bottom: 1px solid #f0f0f0; cursor: pointer; gap: 4px;
+  }
+  .list-item:hover { background: #f5f5f5; }
+  .list-item.selected { background: #e3f2fd; }
+  .list-item input[type=radio] { flex-shrink: 0; }
+  .list-item-text { flex: 1; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .list-item-btns { display: flex; flex-direction: column; gap: 1px; flex-shrink: 0; }
+  .list-item-btns button {
+    padding: 1px 4px; font-size: 10px; background: #bdbdbd;
+    border: none; border-radius: 2px; cursor: pointer; color: #fff; line-height: 1.2;
+  }
+  .list-item-btns button:hover { background: #757575; }
+
+  /* Dialogs */
+  dialog {
+    border: none; padding: 0; border-radius: 4px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    width: 100vw; height: 100vh; max-width: 100vw; max-height: 100vh;
+  }
+  dialog::backdrop { background: rgba(0,0,0,0.45); }
+  .dialog-layout { display: flex; flex-direction: column; height: 100%; }
+  .dialog-title {
+    background: #282c34; color: #fff; padding: 12px 16px;
+    font-size: 15px; font-weight: bold; flex-shrink: 0;
+  }
+  .dialog-content { flex: 1; overflow-y: auto; padding: 12px; }
+  .dialog-actions {
+    border-top: 1px solid #ccc; padding: 8px 12px;
+    display: flex; justify-content: flex-end; gap: 8px;
+    flex-shrink: 0; background: #fafafa;
+  }
+  .dialog-actions button {
+    padding: 6px 18px; border: none; border-radius: 4px; cursor: pointer;
+    background: #1976d2; color: #fff; font-size: 13px;
+  }
+  .dialog-actions button:hover { background: #115293; }
+  .dialog-actions button.secondary { background: #757575; }
+  .dialog-actions button.secondary:hover { background: #424242; }
+
+  /* Edit form */
+  .form-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .form-row label { min-width: 70px; font-size: 13px; }
+  .form-row select, .form-row input[type=text] {
+    font-size: 13px; padding: 3px 6px; border: 1px solid #ccc; border-radius: 3px;
+  }
+  #editext {
+    width: 100%; height: calc(100vh - 240px); border: 3px solid #ccc;
+    padding: 5px; overflow: auto; resize: none; font-size: 13px; font-family: inherit;
+  }
+
+  /* Preview form inside dialog */
+  input[type=radio], input[type=checkbox] { margin-right: 3px; }
+</style>
+</head>
+<body>
+<div class="app-bar">
+  <span class="title">&#9881; My EReport — Options</span>
+  <select id="profile-select"></select>
+  <button id="btn-download">&#8659; 下載</button>
+  <button id="btn-upload">&#8657; 上傳</button>
+  <button id="btn-delete" class="danger">&#128465; 刪除</button>
+</div>
+
+<div class="main-layout">
+  <div class="btn-col">
+    <button id="btn-nc">+ 新增類別</button>
+    <button id="btn-rc">&#9999; 重命名類別</button>
+    <button id="btn-dc" class="danger">&#128465; 刪除類別</button>
+    <button id="btn-nt">+ 新增樣板</button>
+    <button id="btn-et">&#9999; 編輯樣板</button>
+    <button id="btn-dt" class="danger">&#128465; 刪除樣板</button>
+  </div>
+  <div class="list-row">
+    <div class="list-col">
+      <label>類別</label>
+      <div class="list-box" id="cate-list"></div>
+    </div>
+    <div class="list-col">
+      <label>樣板</label>
+      <div class="list-box" id="temp-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Editor dialog -->
+<dialog id="edit-dialog">
+  <div class="dialog-layout">
+    <div class="dialog-title">Editor</div>
+    <div class="dialog-content">
+      <div class="form-row">
+        <label>Category:</label>
+        <select id="cate-select"></select>
+      </div>
+      <div class="form-row">
+        <label>Shortcut:</label>
+        <input type="text" id="shortcut-input" placeholder="英數字" />
+      </div>
+      <textarea id="editext" placeholder="樣板內容"></textarea>
+    </div>
+    <div class="dialog-actions">
+      <button class="secondary" id="btn-edit-cancel">Cancel</button>
+      <button class="secondary" id="btn-preview">Preview</button>
+      <button id="btn-edit-save">SAVE</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Preview dialog -->
+<dialog id="preview-dialog">
+  <div class="dialog-layout">
+    <div class="dialog-title">Preview</div>
+    <div class="dialog-content" id="preview-form-container"></div>
+    <div class="dialog-actions">
+      <button class="secondary" id="btn-preview-back">Edit</button>
+      <button class="secondary" id="btn-preview-close">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<script src="utils.js"></script>
+<script src="makeOption.js"></script>
+<script src="options.js"></script>
+</body>
+</html>

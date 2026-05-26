@@ -1,0 +1,1528 @@
+/* ============================================================
+   SoloReport — 醫學影像報告編輯器
+   app.css
+   ============================================================ */
+
+/* ---------- CSS Variables ---------- */
+:root {
+  --primary:        #1a6fc4;
+  --primary-light:  #e8f0fb;
+  --primary-dark:   #1558a0;
+  --primary-hover:  #1660b0;
+  --danger:         #dc3545;
+  --danger-hover:   #c82333;
+  --success:        #28a745;
+  --success-hover:  #218838;
+  --warning:        #ffc107;
+
+  --gray-50:  #f8f9fa;
+  --gray-100: #f1f3f5;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #ced4da;
+  --gray-500: #adb5bd;
+  --gray-600: #6c757d;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+
+  --text:         #333;
+  --text-muted:   #6c757d;
+  --border:       #dee2e6;
+  --bg:           #f0f2f5;
+  --panel-bg:     #ffffff;
+  --header-bg:    #1a2233;
+  --header-text:  #e8eaf0;
+
+  --font-ui:   -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Consolas', 'Courier New', monospace;
+  --font-report: 'Courier New', monospace;
+
+  --radius-sm: 3px;
+  --radius:    5px;
+  --radius-lg: 8px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow:    0 2px 8px rgba(0,0,0,0.12);
+  --shadow-lg: 0 4px 20px rgba(0,0,0,0.18);
+
+  --header-h:       48px;
+  --patient-bar-h:  54px;
+  --quick-section-h: 130px;
+  --tab-bar-h:      36px;
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* ---------- Header ---------- */
+#app-header {
+  height: var(--header-h);
+  background: var(--header-bg);
+  color: var(--header-text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  flex-shrink: 0;
+  gap: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 100;
+}
+
+.header-left  { display: flex; align-items: center; gap: 14px; }
+.header-right { display: flex; align-items: center; gap: 6px; }
+
+/* My-Assist-V3 連線狀態 */
+.ext-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: var(--gray-100);
+  cursor: default;
+  user-select: none;
+}
+.ext-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gray-400);
+  flex-shrink: 0;
+  transition: background .3s;
+}
+.ext-label {
+  font-size: 11px;
+  color: var(--gray-500);
+  font-weight: 600;
+  transition: color .3s;
+}
+.ext-status.connected .ext-dot  { background: #22c55e; }
+.ext-status.connected .ext-label { color: #15803d; }
+.ext-status.connecting .ext-dot  { background: #f59e0b; animation: ext-pulse .8s infinite alternate; }
+.ext-status.error .ext-dot      { background: #ef4444; }
+
+@keyframes ext-pulse {
+  from { opacity: 1; }
+  to   { opacity: .3; }
+}
+
+.app-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+}
+.logo-icon { font-size: 21px; }
+.logo-text  { font-size: 17px; font-weight: 700; letter-spacing: 0.5px; color: #fff; }
+
+.profile-group { display: flex; align-items: center; gap: 5px; }
+.profile-label { font-size: 12px; color: var(--gray-400); white-space: nowrap; }
+
+#profile-select {
+  height: 28px;
+  padding: 0 6px;
+  border: 1px solid var(--gray-600);
+  border-radius: var(--radius-sm);
+  background: #2a3245;
+  color: var(--header-text);
+  font-size: 13px;
+  cursor: pointer;
+  min-width: 100px;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-family: var(--font-ui);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+.btn:disabled { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+
+.btn-primary      { background: var(--primary); color: #fff; border-color: var(--primary); }
+.btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); }
+
+.btn-success      { background: var(--success); color: #fff; border-color: var(--success); }
+.btn-success:hover { background: var(--success-hover); border-color: var(--success-hover); }
+
+.btn-danger       { background: var(--danger); color: #fff; border-color: var(--danger); }
+.btn-danger:hover  { background: var(--danger-hover); border-color: var(--danger-hover); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--gray-700);
+  border-color: var(--gray-400);
+}
+.btn-outline:hover { background: var(--gray-100); border-color: var(--gray-500); }
+
+.btn-outline-primary {
+  background: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.btn-outline-primary:hover { background: var(--primary-light); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--gray-600);
+  border-color: transparent;
+}
+.btn-ghost:hover { background: var(--gray-100); color: var(--text); }
+
+/* In header: style outline buttons for dark bg */
+#app-header .btn-outline-primary {
+  color: #90caf9;
+  border-color: #5a8fc4;
+}
+#app-header .btn-outline-primary:hover { background: rgba(255,255,255,0.1); }
+#app-header .btn-outline {
+  color: var(--gray-300);
+  border-color: var(--gray-600);
+}
+#app-header .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+/* 科室病人清單日期選擇器 */
+.dept-date-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+#dept-date {
+  font-size: 12px;
+  padding: 2px 6px;
+  border: 1px solid var(--gray-600);
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  color-scheme: dark;
+  cursor: pointer;
+}
+#dept-date:focus { outline: none; border-color: #90caf9; }
+
+.btn-sm  { padding: 3px 8px; font-size: 12px; }
+.btn-xs  { padding: 2px 6px; font-size: 11px; }
+.btn-block { width: 100%; }
+
+/* Close button */
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 17px;
+  cursor: pointer;
+  color: var(--gray-500);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  line-height: 1;
+}
+.btn-close:hover { background: var(--gray-100); color: var(--text); }
+
+/* Hidden */
+.hidden { display: none !important; }
+
+/* ---------- Main Layout ---------- */
+#app-main {
+  display: flex;
+  height: calc(100vh - var(--header-h));
+  overflow: hidden;
+}
+
+/* ---------- Left Panel ---------- */
+#left-panel {
+  width: 30%;
+  min-width: 240px;
+  max-width: 360px;
+  background: var(--panel-bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ---------- Right Panel ---------- */
+#right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* ---------- Filter Panel ---------- */
+.filter-panel {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  background: var(--gray-50);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.filter-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  min-height: 24px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 28px;
+  padding-top: 4px;
+  white-space: nowrap;
+}
+
+.filter-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  flex: 1;
+}
+
+.filter-btn {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--gray-300);
+  background: white;
+  color: var(--gray-700);
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+  user-select: none;
+}
+.filter-btn:hover { background: var(--gray-100); border-color: var(--gray-400); }
+.filter-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* ---------- Template Tree ---------- */
+#template-tree-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+#template-tree ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tree-category { }
+
+.tree-category-header {
+  display: flex;
+  align-items: center;
+  padding: 5px 8px;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--gray-700);
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.tree-category-header:hover { background: var(--gray-100); }
+
+.tree-caret {
+  display: inline-block;
+  width: 14px;
+  font-size: 11px;
+  transition: transform 0.2s;
+  color: var(--gray-500);
+}
+.tree-category.open .tree-caret { transform: rotate(90deg); }
+
+.tree-items { display: none; }
+.tree-category.open .tree-items { display: block; }
+
+.tree-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px 4px 22px;
+  cursor: pointer;
+  font-size: 13px;
+  border-bottom: 1px solid transparent;
+  gap: 6px;
+  position: relative;
+}
+.tree-item:hover { background: var(--primary-light); }
+.tree-item.selected { background: #dbeafe; }
+
+.tree-item-shortcut {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  min-width: 70px;
+}
+.tree-item-desc {
+  font-size: 12px;
+  color: var(--gray-500);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+.tree-item-inactive { opacity: 0.45; }
+
+/* 模板有暫存狀態（同病患 + profile + shortcut 的 draft 存於 sessionStorage）*/
+.tree-item.tree-item-draft {
+  background: rgba(224, 106, 154, 0.10);
+}
+.tree-item.tree-item-draft:hover {
+  background: rgba(224, 106, 154, 0.20);
+}
+
+.tree-item-actions {
+  display: none;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.tree-item:hover .tree-item-actions { display: flex; }
+
+.tree-action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--gray-400);
+  padding: 1px 3px;
+  border-radius: 2px;
+}
+.tree-action-btn:hover { background: rgba(0,0,0,0.08); color: var(--text); }
+
+/* ---------- Panel Footer ---------- */
+.panel-footer {
+  padding: 8px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+/* ---------- Patient Bar ---------- */
+#patient-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: var(--panel-bg);
+  border-bottom: 1px solid var(--border);
+  gap: 8px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.patient-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex: 1;
+}
+
+.patient-field {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.patient-field label {
+  font-size: 12px;
+  color: var(--gray-500);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.patient-field input,
+.patient-field select {
+  height: 28px;
+  padding: 0 7px;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  background: #fff;
+  color: var(--text);
+}
+.patient-field input { min-width: 90px; max-width: 150px; }
+.patient-field input:focus,
+.patient-field select:focus { outline: none; border-color: var(--primary); }
+
+/* Report combobox (patient ID) */
+.report-combobox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.report-combobox input {
+  min-width: 90px;
+  max-width: 150px;
+}
+.report-dropdown-btn {
+  height: 28px;
+  width: 22px;
+  padding: 0;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  background: var(--panel-bg);
+  color: var(--gray-500);
+  font-size: 11px;
+  cursor: pointer;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.report-dropdown-btn:hover {
+  background: var(--gray-100);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.report-dropdown-btn.open {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.patient-dropdown {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  min-width: 320px;
+  max-height: 260px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+  z-index: 200;
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+}
+.patient-dropdown li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.patient-dropdown li:hover,
+.patient-dropdown li.active {
+  background: var(--primary-light, #e8f0fe);
+}
+.pd-id   { font-family: var(--font-mono); font-weight: 600; color: var(--primary); min-width: 80px; }
+.pd-name { color: var(--text); flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.pd-date { font-size: 11px; color: var(--gray-500); flex-shrink: 0; }
+.pd-mod  { font-size: 11px; color: var(--gray-400); flex-shrink: 0; }
+.patient-dropdown .pd-empty {
+  padding: 8px 10px;
+  color: var(--gray-400);
+  font-size: 12px;
+  cursor: default;
+}
+/* HIS 科室清單區塊 */
+.pd-section-header {
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gray-500);
+  background: var(--gray-100);
+  cursor: default;
+  pointer-events: none;
+}
+.pd-dept-item { border-left: 3px solid #90caf9; }
+/* 狀態別色碼：未報到(2)灰、已報到(3)綠、報告未完成(5)橙、報告已完成(4)藍 */
+.pd-status-2  { color: #757575; }
+.pd-status-3  { color: #2e7d32; background: #f1f8f1; }
+.pd-status-5  { color: #e65100; background: #fff8f2; }
+.pd-status-4  { color: #1565c0; background: #f0f4ff; }
+.pd-status-item-2 { border-left-color: #bdbdbd; }
+.pd-status-item-3 { border-left-color: #66bb6a; }
+.pd-status-item-5 { border-left-color: #ffa726; }
+.pd-status-item-4 { border-left-color: #42a5f5; }
+/* 拖曳把手 */
+.pd-drag-handle {
+  cursor: grab;
+  color: var(--gray-400);
+  padding: 0 5px 0 2px;
+  font-size: 13px;
+  user-select: none;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.pd-drag-handle:active { cursor: grabbing; }
+/* 拖曳中的來源項目：半透明 */
+.pd-dept-item.pd-dragging { opacity: 0.35; }
+/* 拖曳目標插入指示線 */
+.pd-dept-item.pd-drag-over {
+  border-top: 2px solid var(--primary);
+  background: rgba(26, 111, 196, 0.07) !important;
+}
+/* ext-status 人數角標 */
+.ext-count {
+  margin-left: 5px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 8px;
+}
+
+.patient-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+.autosave-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--gray-500);
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* ---------- Quick Section ---------- */
+#right-quick-section {
+  background: var(--panel-bg);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+#report-filters {
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--gray-200);
+  background: var(--gray-50);
+}
+
+.quick-buttons {
+  padding: 5px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-height: 68px;
+  overflow-y: auto;
+  min-height: 36px;
+}
+
+.quick-btn {
+  display: inline-block;
+  padding: 3px 10px;
+  border: 1px solid var(--primary);
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  white-space: nowrap;
+}
+.quick-btn:hover { background: var(--primary); color: #fff; }
+.quick-btn.no-dsl { border-style: dashed; }
+
+/* ---------- Report Body（editor + history note 合體面板）---------- */
+#report-body {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  min-height: 0;
+  margin: 8px;
+  background: var(--panel-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---------- Report Editor ---------- */
+#report-editor-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;   /* 允許 flex 子項縮小 */
+}
+
+/* ---------- History Note Sidebar ---------- */
+#history-note-panel {
+  flex: 1;               /* 與 editor 等寬（50/50） */
+  min-width: 220px;
+  display: none;
+  flex-direction: column;
+  border-left: 1px solid var(--border);
+  overflow: hidden;
+}
+#history-note-panel.open { display: flex; }
+
+.hn-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px 0 12px;
+  height: var(--tab-bar-h);
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--gray-50);
+  gap: 6px;
+}
+
+.hn-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--gray-700);
+  flex: 1;
+  min-width: 0;
+}
+
+.hn-patient-label {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 1px 7px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.hn-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.hn-textarea {
+  flex: 1;
+  resize: none;
+  border: none;
+  outline: none;
+  padding: 12px 14px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+  background: transparent;
+}
+.hn-textarea:focus { background: #fafcff; }
+
+/* ── Markdown 預覽區 ── */
+.hn-preview {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 16px;
+  font-family: var(--font-ui);
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text);
+  background: #fff;
+}
+
+/* Markdown 元素樣式 */
+.hn-preview h1 { font-size: 1.3em; font-weight: 700; margin: 0 0 8px; padding-bottom: 4px; border-bottom: 2px solid var(--border); color: var(--gray-800); }
+.hn-preview h2 { font-size: 1.15em; font-weight: 700; margin: 12px 0 6px; color: var(--gray-800); }
+.hn-preview h3 { font-size: 1.05em; font-weight: 600; margin: 10px 0 4px; color: var(--gray-700); }
+.hn-preview p  { margin: 0 0 8px; }
+.hn-preview ul, .hn-preview ol { margin: 4px 0 8px 20px; padding: 0; }
+.hn-preview li { margin-bottom: 3px; }
+.hn-preview hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+.hn-preview strong { font-weight: 700; color: var(--gray-900); }
+.hn-preview em { font-style: italic; color: var(--gray-700); }
+.hn-preview del { color: var(--gray-500); }
+.hn-preview a  { color: var(--primary); text-decoration: underline; }
+.hn-preview code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-300);
+  border-radius: 3px;
+  padding: 1px 5px;
+  color: var(--danger);
+}
+.hn-preview pre {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+.hn-preview pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--gray-800);
+  font-size: 12px;
+}
+.hn-preview blockquote {
+  border-left: 3px solid var(--primary);
+  margin: 8px 0;
+  padding: 4px 12px;
+  color: var(--gray-600);
+  background: var(--primary-light);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.hn-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 10px;
+  font-size: 11px;
+  border-top: 1px solid var(--gray-200);
+  background: var(--gray-50);
+  flex-shrink: 0;
+  min-height: 22px;
+}
+
+.hn-mode-label {
+  color: var(--gray-400);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.hn-save-status { color: var(--gray-500); transition: color 0.3s; }
+.hn-save-status.saved { color: var(--success); }
+
+/* History Note 按鈕 active 狀態 */
+#btn-history-note.active {
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+/* 預覽按鈕 active 狀態 */
+#btn-hn-preview.active {
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+#report-tabs {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  background: var(--gray-50);
+  padding: 0 6px;
+  flex-shrink: 0;
+  height: var(--tab-bar-h);
+}
+
+.tab-btn {
+  height: 100%;
+  padding: 0 14px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-600);
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  position: relative;
+  top: 1px;
+}
+.tab-btn:hover { color: var(--primary); }
+.tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+.tab-spacer { flex: 1; }
+
+/* report-editor-container: flex column 容納多個 editor-with-ln */
+#report-editor-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 每個 textarea 包裝層（含行號欄）：預設隱藏，.active 時顯示為 flex row */
+.editor-with-ln {
+  display: none;
+  flex: 1;
+  overflow: hidden;
+}
+.editor-with-ln.active {
+  display: flex;
+}
+
+/* 行號欄 */
+.ln-col {
+  width: 46px;
+  padding: 14px 6px 14px 0;
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 18px;        /* 與 report-textarea 相同，確保行高對齊 */
+  line-height: 1.7;       /* 與 report-textarea 相同 */
+  color: var(--gray-400);
+  background: var(--gray-50);
+  border-right: 1px solid var(--gray-200);
+  user-select: none;
+  overflow: hidden;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.report-textarea {
+  flex: 1;
+  resize: none;
+  border: none;
+  outline: none;
+  padding: 14px 18px;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text);
+  background: #fff;
+  overflow-y: auto;
+}
+.report-textarea::placeholder { color: var(--gray-400); font-style: italic; }
+
+/* ---------- Form controls (generated by makeOption.js) ---------- */
+.opt-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.opt-row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin: 2px 0; }
+.opt-row.vertical { flex-direction: column; align-items: flex-start; }
+
+.opt-radio-item,
+.opt-check-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
+}
+.opt-radio-item:hover,
+.opt-check-item:hover { background: var(--gray-100); }
+
+.opt-radio-item input,
+.opt-check-item input { cursor: pointer; }
+
+.opt-label { cursor: pointer; font-size: 13px; }
+
+/* Compound / nested option row */
+.opt-compound {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  background: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+  margin: 2px 0;
+}
+.opt-compound .opt-label { color: #2e7d32; }
+
+/* Grid option */
+.opt-grid { display: flex; flex-direction: column; gap: 2px; }
+.opt-grid-row { display: flex; gap: 4px; flex-wrap: nowrap; }
+.opt-grid-cell { min-width: 90px; display: inline-flex; align-items: center; gap: 3px; }
+
+/* Text input inside form */
+.opt-text-input {
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  padding: 1px 5px;
+  font-size: 13px;
+  height: 22px;
+  width: 60px;
+  font-family: var(--font-ui);
+}
+.opt-text-input:focus { outline: none; border-color: var(--primary); }
+
+/* Select (dropdown) */
+.opt-select {
+  padding: 2px 6px;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  background: #fff;
+  cursor: pointer;
+  max-width: 100%;
+}
+.opt-select:focus { outline: none; border-color: var(--primary); }
+
+/* Text plain label in form */
+.opt-text-label { font-size: 13px; color: var(--text); }
+
+/* C(text) 行內於選項文字中 — 灰色斜體，不輸出 */
+.opt-inline-comment {
+  font-size: 11px;
+  color: var(--gray-400);
+  font-style: italic;
+  margin-left: 3px;
+}
+
+/* C(text) — 顯示用註解：灰色斜體，帶左側細線，輸出時不包含 */
+.opt-comment {
+  display: block;
+  font-size: 12px;
+  color: var(--gray-400);
+  font-style: italic;
+  padding: 1px 6px;
+  border-left: 2px solid var(--gray-300);
+  margin: 1px 0;
+  line-height: 1.5;
+}
+
+/* ---------- Modals ---------- */
+#modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 900;
+  display: none;
+}
+#modal-backdrop.active { display: block; }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.modal.open {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  width: 560px;
+  overflow: hidden;
+  transform: translateY(-10px);
+  transition: transform 0.2s;
+}
+.modal.open .modal-content { transform: translateY(0); }
+
+.modal-content.modal-sm  { width: 420px; }
+.modal-content.modal-md  { width: 580px; max-width: 95vw; }
+.modal-content.modal-lg  { width: max(50vw, 820px); max-width: 95vw; }
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.modal-header h3 { font-size: 16px; font-weight: 600; }
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 18px;
+}
+
+.modal-body-split {
+  display: flex;
+  gap: 16px;
+  min-height: 400px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.te-left {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 14px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.te-right {
+  width: max(320px, 38%);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  background: var(--gray-50);
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.preview-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 12px;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-top: 1px solid var(--border);
+  gap: 8px;
+  flex-shrink: 0;
+}
+.footer-right { display: flex; gap: 8px; }
+
+/* 暫存按鈕 — 靠左排列，已有暫存時改為粉色外框 */
+#btn-options-draft {
+  margin-right: auto;   /* 將「取消」與「插入」推到右側 */
+}
+#btn-options-draft.has-draft {
+  color: #c0507a;
+  border-color: #e06a9a;
+}
+
+/* ---------- Form Groups (in modals) ---------- */
+.form-row { display: flex; gap: 10px; }
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group.half { flex: 1; min-width: 0; }
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.label-hint { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--gray-400); }
+
+.form-group input[type=text],
+.form-group select {
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  width: 100%;
+}
+.form-group input:focus,
+.form-group select:focus { outline: none; border-color: var(--primary); }
+
+.input-with-btn { display: flex; gap: 4px; }
+.input-with-btn select { flex: 1; }
+
+.inline-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  color: var(--text) !important;
+}
+
+.te-main-group { flex: 1; }
+
+.dsl-textarea {
+  width: 100%;
+  min-height: 180px;
+  padding: 8px;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  resize: vertical;
+  line-height: 1.5;
+}
+.dsl-textarea:focus { outline: none; border-color: var(--primary); }
+
+/* Tag checkboxes */
+.tag-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-height: 24px;
+}
+.tag-check-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border: 1px solid var(--gray-300);
+  border-radius: 10px;
+  background: #fff;
+  white-space: nowrap;
+}
+.tag-check-item input { width: 12px; height: 12px; cursor: pointer; }
+.tag-check-item:hover { background: var(--gray-100); }
+
+/* DSL help table */
+.dsl-help { margin-top: 4px; }
+.dsl-help details { font-size: 12px; color: var(--gray-600); }
+.dsl-help summary { cursor: pointer; color: var(--primary); margin-bottom: 4px; }
+.dsl-table { border-collapse: collapse; width: 100%; }
+.dsl-table td { padding: 2px 6px; }
+.dsl-table td:first-child { font-family: var(--font-mono); color: var(--primary-dark); }
+code { font-family: var(--font-mono); font-size: 12px; background: var(--gray-100); padding: 1px 3px; border-radius: 2px; }
+
+/* ---------- Options modal shortcut label ---------- */
+.options-shortcut-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-bottom: 8px;
+}
+
+/* ---------- Template Manager ---------- */
+.tm-layout { display: flex; gap: 12px; min-height: 400px; }
+.tm-col { display: flex; flex-direction: column; }
+.tm-col-left  { width: 200px; flex-shrink: 0; }
+.tm-col-right { flex: 1; min-width: 0; }
+
+.tm-col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  background: var(--gray-50);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-600);
+  text-transform: uppercase;
+}
+
+.tm-list {
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  flex: 1;
+  overflow-y: auto;
+  min-height: 300px;
+  background: #fff;
+}
+
+.tm-list-item {
+  padding: 6px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--gray-100);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tm-list-item:hover { background: var(--primary-light); }
+.tm-list-item.selected { background: #dbeafe; }
+
+.tm-item-shortcut { font-family: var(--font-mono); color: var(--primary); font-size: 12px; font-weight: 600; }
+.tm-item-desc { color: var(--gray-500); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.tm-item-inactive { opacity: 0.4; }
+
+.tm-actions { display: flex; gap: 6px; padding-top: 8px; flex-wrap: wrap; }
+
+/* ---------- Profile List ---------- */
+.profile-list { list-style: none; margin-bottom: 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; max-height: 180px; overflow-y: auto; }
+.profile-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--gray-100);
+  font-size: 14px;
+}
+.profile-list-item:last-child { border-bottom: none; }
+.profile-list-item.current { background: var(--primary-light); font-weight: 600; }
+.profile-item-name { flex: 1; }
+.profile-item-actions { display: flex; gap: 4px; }
+
+.input-row { display: flex; gap: 6px; }
+.input-row input { flex: 1; }
+.mt-4 { margin-top: 4px; }
+
+/* ---------- Modal Divider ---------- */
+.modal-divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+.label-sm { font-size: 12px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: .04em; display: block; margin-bottom: 6px; }
+
+/* ---------- Global Tag List ---------- */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-height: 28px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--gray-50);
+}
+.global-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 6px 2px 8px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.global-tag-del {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-dark);
+  font-size: 14px;
+  line-height: 1;
+  padding: 0 1px;
+  opacity: .7;
+}
+.global-tag-del:hover { opacity: 1; color: var(--danger); }
+
+/* ---------- History Modal ---------- */
+.history-search { margin-bottom: 10px; display: flex; gap: 8px; align-items: center; }
+.history-search input { flex: 1; height: 30px; padding: 0 10px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font-size: 13px; }
+.history-search input:focus { outline: none; border-color: var(--primary); }
+
+.history-list { display: flex; flex-direction: column; gap: 6px; }
+
+.history-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px;
+  background: #fff;
+  transition: box-shadow 0.15s;
+}
+.history-item:hover { box-shadow: var(--shadow-sm); }
+
+.history-item-header { display: flex; gap: 10px; align-items: center; }
+.history-patient-id  { font-family: var(--font-mono); font-weight: 600; font-size: 14px; color: var(--primary); }
+.history-patient-name { font-size: 13px; color: var(--text); }
+.history-date         { font-size: 12px; color: var(--gray-500); }
+.history-modality     { font-size: 12px; color: var(--gray-500); background: var(--gray-100); padding: 1px 5px; border-radius: 3px; }
+.history-preview      { font-size: 12px; color: var(--gray-500); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; grid-column: 1; }
+.history-actions      { grid-column: 2; grid-row: 1 / 3; display: flex; flex-direction: column; gap: 4px; justify-content: center; }
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--gray-800);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  z-index: 2000;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none;
+  max-width: 320px;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.success { background: var(--success); }
+.toast.error   { background: var(--danger); }
+
+/* ---------- Autocomplete Dropdown ---------- */
+.autocomplete-dropdown {
+  position: fixed;
+  z-index: 9999;
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  min-width: 160px;
+  max-width: 320px;
+  max-height: 244px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text);
+  /* 選單本身不影響 textarea 焦點 */
+  pointer-events: auto;
+}
+
+.autocomplete-dropdown li {
+  padding: 3px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.9;
+  color: var(--gray-700);
+  border-radius: 0;
+  transition: background 0.08s;
+}
+.autocomplete-dropdown li:hover {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+.autocomplete-dropdown li.selected {
+  background: var(--primary);
+  color: #fff;
+}
+.autocomplete-dropdown li.selected .ac-hl {
+  color: #fff;
+  opacity: 0.85;
+}
+
+/* 高亮前綴部分 */
+.ac-hl {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* ---------- Scrollbars ---------- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
+
+/* ---------- Utility ---------- */
+.text-muted  { color: var(--text-muted); }
+.text-danger { color: var(--danger); }
+.text-small  { font-size: 12px; }
+.mt-2 { margin-top: 8px; }
+.no-items-msg { padding: 16px; text-align: center; color: var(--gray-400); font-size: 13px; font-style: italic; }
+
+/* ─── Embed 模式（HIS 頁面 iframe 嵌入）──────────────────── */
+body.embed-mode #app-header       { display: none; }
+body.embed-mode #app-main         { height: 100vh; }
+body.embed-mode .patient-field    { display: none; }
+body.embed-mode .autosave-field   { display: flex !important; }
+body.embed-mode #patient-bar      { padding: 4px 10px; gap: 6px; }
+
+.embed-patient-strip {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; padding: 0 4px; min-width: 0;
+}
+.epi-id   { font-weight: 700; color: var(--primary); }
+.epi-name { color: var(--text); font-weight: 600; }
+.epi-date { color: var(--text-muted); font-size: 12px; }
+.epi-mod  { color: var(--text-muted); font-size: 12px; background:var(--gray-100);
+            padding: 0 5px; border-radius: 3px; }
+
+/* ── Embed 模式：左側工具列（profile 選擇器 + 操作按鈕）──────────────────── */
+#embed-left-toolbar {
+  display: none;   /* 正常模式隱藏 */
+}
+
+body.embed-mode #embed-left-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 7px 8px;
+  border-bottom: 1px solid var(--border);
+  background: var(--gray-50);
+  flex-shrink: 0;
+}
+
+/* profile-group 搬至左側後，切換為淺色主題 */
+body.embed-mode .embed-tb-profile {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+}
+body.embed-mode .embed-tb-profile .profile-label {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+body.embed-mode .embed-tb-profile #profile-select {
+  flex: 1;
+  min-width: 0;
+  height: 26px;
+  font-size: 12px;
+  background: #fff;
+  color: var(--text);
+  border: 1px solid var(--gray-400);
+  border-radius: var(--radius-sm);
+  padding: 0 5px;
+  cursor: pointer;
+}
+body.embed-mode .embed-tb-profile #btn-manage-profiles {
+  flex-shrink: 0;
+  background: transparent;
+  color: var(--text-muted);
+  border-color: var(--gray-300);
+  padding: 2px 6px;
+  font-size: 13px;
+}
+body.embed-mode .embed-tb-profile #btn-manage-profiles:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* 第二列：模板管理 / 匯入 / 匯出 */
+.embed-tb-actions {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.embed-tb-actions .btn {
+  flex: 1;
+  font-size: 11px;
+  padding: 3px 6px;
+  justify-content: center;
+}
